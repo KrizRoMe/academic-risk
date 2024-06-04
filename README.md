@@ -1,6 +1,6 @@
 # 🎓 Academic Risk
 
-Web application focused on reduce the rate of students at academic risk.
+Web Application focused on reduce the rate of students at academic risk.
 
 ## 👀 Requirements
 
