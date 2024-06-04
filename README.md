@@ -13,8 +13,8 @@ Web application focused on reduce the rate of students at academic risk.
 1. Clone the repository.
 
    ```bash
-      git clone https://github.com/KrizRoMe/academic-risk.git
-      cd academic-risk
+    git clone https://github.com/KrizRoMe/academic-risk.git
+    cd academic-risk
    ```
 
 2. Activate pnpm using corepack:
@@ -26,7 +26,7 @@ Web application focused on reduce the rate of students at academic risk.
 3. Install dependencies:
 
    ```bash
-      pnpm install
+    pnpm install
    ```
 
 4. Start the development server and navigate to <http://127.0.0.1:3000/> to access the application.
