@@ -32,7 +32,7 @@ Web application focused on reduce the rate of students at academic risk.
 4. Start the development server and navigate to <http://127.0.0.1:3000/> to access the application.
 
    ```bash
-   pnpm run-dev
+   pnpm run dev
    ```
 
 5. That's all you need to do.
