@@ -1,5 +1,10 @@
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "AcademicRisk | Login",
+};
 
 export default function Home() {
   return (
