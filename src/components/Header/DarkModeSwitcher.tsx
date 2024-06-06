@@ -1,9 +1,8 @@
-interface Props {
-  colorMode: string | ((value: string) => void);
-  setColorMode: string | ((value: string) => void);
-}
+import useColorMode from "@/hooks/useColorMode";
 
-const DarkModeSwitcher = ({ colorMode, setColorMode }: Props) => {
+const DarkModeSwitcher = () => {
+  const [colorMode, setColorMode] = useColorMode();
+
   return (
     <li>
       <label

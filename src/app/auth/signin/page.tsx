@@ -1,20 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js SignIn Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Signin Page TailAdmin Dashboard Template",
+  title: "AcademicRisk | Sign In",
 };
 
 const SignIn: React.FC = () => {
   return (
-    <DefaultLayout>
-      <Breadcrumb pageName="Ingresar" />
-
+    <DefaultLayout isShowUser={false}>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
@@ -24,20 +20,20 @@ const SignIn: React.FC = () => {
                   className="hidden dark:block"
                   src={"/images/logo/logo.svg"}
                   alt="Logo"
-                  width={176}
+                  width={145}
                   height={32}
                 />
                 <Image
                   className="dark:hidden"
                   src={"/images/logo/logo-dark.svg"}
                   alt="Logo"
-                  width={176}
+                  width={145}
                   height={32}
                 />
               </Link>
-              <title>AcademicRisk</title>
               <p className="2xl:px-20">
-                Reavivamos tus sueños, fortalecemos tu futuro.
+                Aplicación web enfocada a reducir la taza de estudiantes en
+                riesgo académico.
               </p>
 
               <span className="mt-15 inline-block">
@@ -48,10 +44,7 @@ const SignIn: React.FC = () => {
                   display="flex"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  
-                  
                 >
-                  
                   <path
                     d="M33.5825 294.844L30.5069 282.723C25.0538 280.414 19.4747 278.414 13.7961 276.732L13.4079 282.365L11.8335 276.159C4.79107 274.148 0 273.263 0 273.263C0 273.263 6.46998 297.853 20.0448 316.653L35.8606 319.429L23.5737 321.2C25.2813 323.253 27.1164 325.196 29.0681 327.019C48.8132 345.333 70.8061 353.736 78.1898 345.787C85.5736 337.838 75.5526 316.547 55.8074 298.235C49.6862 292.557 41.9968 288.001 34.2994 284.415L33.5825 294.844Z"
                     fill="#F2F2F2"
@@ -166,7 +159,6 @@ const SignIn: React.FC = () => {
                   />
                 </svg>
               </span>
-              
             </div>
           </div>
 
@@ -174,7 +166,7 @@ const SignIn: React.FC = () => {
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <span className="mb-1.5 block font-medium">Vamos!</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Ingresar 
+                Ingresar
               </h2>
 
               <form>
@@ -252,10 +244,6 @@ const SignIn: React.FC = () => {
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>
-
-                
-
-                
               </form>
             </div>
           </div>
