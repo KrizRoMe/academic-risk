@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "AcademicRisk",
   description:
     "Web Application focused on reduce the rate of students at academic risk.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
