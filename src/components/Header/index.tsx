@@ -10,7 +10,7 @@ const Header = (props: {
 }) => {
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+      <div className="flex flex-grow items-center justify-between gap-2 px-4 py-4 shadow-2 md:px-6 2xl:px-12">
         {/* <!-- Sidebar Toggle Button --> */}
         {props.isShowUser && (
           <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
@@ -56,20 +56,11 @@ const Header = (props: {
               </span>
             </button>
             {/* <!-- Hamburger Toggle BTN --> */}
-
-            <Link className="block flex-shrink-0 lg:hidden" href="/">
-              <Image
-                width={32}
-                height={32}
-                src={"/images/logo/logo.svg"}
-                alt="Logo"
-              />
-            </Link>
           </div>
         )}
 
-        <div className="flex items-center gap-2 ">
-          {!props.isShowUser && (
+        {!props.isShowUser && (
+          <div className="flex items-center gap-2">
             <>
               <Link href="/">
                 <Image
@@ -93,7 +84,42 @@ const Header = (props: {
                 AcademicRisk
               </h2>
             </>
-          )}
+          </div>
+        )}
+
+        <div className="relative z-20 w-30 bg-white dark:bg-form-input sm:w-50 md:w-70">
+          <span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
+            <Image
+              width={20}
+              height={20}
+              src={"/images/header/year.svg"}
+              alt="Year"
+              priority
+            />
+          </span>
+          <select className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ">
+            <option value="" className="text-body dark:text-bodydark">
+              Seleccionar Año
+            </option>
+            <option value="1" className="text-body dark:text-bodydark">
+              2024
+            </option>
+            <option value="2" className="text-body dark:text-bodydark">
+              2023
+            </option>
+            <option value="3" className="text-body dark:text-bodydark">
+              2022
+            </option>
+          </select>
+          <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
+            <Image
+              width={20}
+              height={20}
+              src={"/images/header/select-arrow.svg"}
+              alt="Year"
+              priority
+            />
+          </span>
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
