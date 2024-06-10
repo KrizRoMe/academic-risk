@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 };
 
 const columns = [
-  { header: "ID", field: "id", span: 3 },
-  { header: "Nombre", field: "name", span: 3 },
-  { header: "Curso", field: "course", span: 3 },
-  { header: "N° Desapbrobados", field: "failed", span: 3 },
+  { header: "ID", field: "id" },
+  { header: "Nombre", field: "name" },
+  { header: "Curso", field: "course" },
+  { header: "N° Desapbrobados", field: "failed" },
 ];
 const data = [
   {
