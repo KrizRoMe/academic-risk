@@ -124,8 +124,8 @@ const Header = (props: {
           </div>
         )}
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
-          <ul className="flex items-center gap-2 2xsm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
+          <ul className="flex items-center">
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />
             {/* <!-- Dark Mode Toggler --> */}
