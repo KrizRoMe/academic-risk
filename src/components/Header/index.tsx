@@ -87,40 +87,42 @@ const Header = (props: {
           </div>
         )}
 
-        <div className="relative z-20 w-30 bg-white dark:bg-form-input sm:w-50 md:w-70">
-          <span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
-            <Image
-              width={20}
-              height={20}
-              src={"/images/header/year.svg"}
-              alt="Year"
-              priority
-            />
-          </span>
-          <select className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ">
-            <option value="" className="text-body dark:text-bodydark">
-              Seleccionar Año
-            </option>
-            <option value="1" className="text-body dark:text-bodydark">
-              2024
-            </option>
-            <option value="2" className="text-body dark:text-bodydark">
-              2023
-            </option>
-            <option value="3" className="text-body dark:text-bodydark">
-              2022
-            </option>
-          </select>
-          <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
-            <Image
-              width={20}
-              height={20}
-              src={"/images/header/select-arrow.svg"}
-              alt="Year"
-              priority
-            />
-          </span>
-        </div>
+        {props.isShowUser && (
+          <div className="relative z-20 w-30 bg-white dark:bg-form-input sm:w-50 md:w-70">
+            <span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
+              <Image
+                width={20}
+                height={20}
+                src={"/images/header/year.svg"}
+                alt="Year"
+                priority
+              />
+            </span>
+            <select className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ">
+              <option value="" className="text-body dark:text-bodydark">
+                Seleccionar Año
+              </option>
+              <option value="1" className="text-body dark:text-bodydark">
+                2024
+              </option>
+              <option value="2" className="text-body dark:text-bodydark">
+                2023
+              </option>
+              <option value="3" className="text-body dark:text-bodydark">
+                2022
+              </option>
+            </select>
+            <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
+              <Image
+                width={20}
+                height={20}
+                src={"/images/header/select-arrow.svg"}
+                alt="Year"
+                priority
+              />
+            </span>
+          </div>
+        )}
 
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
