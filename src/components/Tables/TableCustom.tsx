@@ -1,5 +1,3 @@
-import React from "react";
-
 interface Column {
   header: string;
   field: string;
