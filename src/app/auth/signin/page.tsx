@@ -238,11 +238,18 @@ const SignIn: React.FC = () => {
 
                 <div className="mb-5">
                   <br />
-                  <input
+                  <Link
+                    href="/dashboard/profile"
+                    className="block w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-center text-white transition hover:bg-opacity-90"
+                  >
+                    Ingresar
+                  </Link>
+                  {/* <button
                     type="submit"
-                    value="Ingresar"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  />
+                  >
+                    Ingresar
+                  </button> */}
                 </div>
               </form>
             </div>
