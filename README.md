@@ -13,8 +13,8 @@ Web Application focused on reduce the rate of students at academic risk.
 1. Clone the repository.
 
    ```bash
-    git clone https://github.com/KrizRoMe/academic-risk.git
-    cd academic-risk
+   git clone https://github.com/KrizRoMe/academic-risk.git
+   cd academic-risk
    ```
 
 2. Activate pnpm using corepack:
@@ -26,16 +26,40 @@ Web Application focused on reduce the rate of students at academic risk.
 3. Install dependencies:
 
    ```bash
-    pnpm install
+   pnpm install
    ```
 
-4. Start the development server and navigate to <http://127.0.0.1:3000/> to access the application.
+4. Set up environment variables:
+
+   - Copy the content of `.env.example` into `.env`.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   - Fill in the values of the environment variables.
+
+5. Set up Database:
+
+   - Create a database in PostgreSQL using compose.yml.
+
+   ```bash
+   docker-compose up -d
+   ```
+
+   - Run the migrations.
+
+   ```bash
+   pnpx prisma migrate dev
+   ```
+
+6. Start the development server and navigate to <http://127.0.0.1:3000/> to access the application.
 
    ```bash
    pnpm run dev
    ```
 
-5. That's all you need to do.
+7. That's all you need to do.
 
 ## 🧰 Local Development
 
