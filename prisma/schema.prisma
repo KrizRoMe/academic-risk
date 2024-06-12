@@ -8,10 +8,65 @@ datasource db {
 }
 
 model Student {
-  id        Int      @id @default(autoincrement())
-  code      String   @unique
+  id        Int       @id @default(autoincrement())
+  code      String    @unique
   name      String
   surname   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  grades    Grade[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Course {
+  id        Int       @id @default(autoincrement())
+  code      String    @unique
+  name      String
+  grades    Grade[]
+  risks     RiskCourse[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model AcademicYear {
+  id        Int       @id @default(autoincrement())
+  year      Int       @unique
+  periods   AcademicPeriod[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model AcademicPeriod {
+  id          Int            @id @default(autoincrement())
+  semester    Int
+  startDate   DateTime
+  endDate     DateTime
+  yearId      Int
+  grades      Grade[]
+  risks       RiskCourse[]
+  year        AcademicYear   @relation(fields: [yearId], references: [id])
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Grade {
+  id               Int            @id @default(autoincrement())
+  value            Float
+  studentId        Int
+  courseId         Int
+  academicPeriodId Int
+  student          Student        @relation(fields: [studentId], references: [id])
+  course           Course         @relation(fields: [courseId], references: [id])
+  academicPeriod   AcademicPeriod @relation(fields: [academicPeriodId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model RiskCourse {
+  id               Int            @id @default(autoincrement())
+  courseId         Int
+  academicPeriodId Int
+  course           Course         @relation(fields: [courseId], references: [id])
+  academicPeriod   AcademicPeriod @relation(fields: [academicPeriodId], references: [id])
+  updatedAt        DateTime       @updatedAt
+  createdAt        DateTime       @default(now())
 }
