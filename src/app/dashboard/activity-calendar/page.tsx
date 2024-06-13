@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "AcademicRisk | Calendar",
 };
 
-const CalendarPage = () => {
+const ActivityCalendarPage = () => {
   return (
     <DefaultLayout>
       <Calendar />
@@ -14,4 +14,4 @@ const CalendarPage = () => {
   );
 };
 
-export default CalendarPage;
+export default ActivityCalendarPage;

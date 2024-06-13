@@ -34,7 +34,7 @@ const data = [
   },
 ];
 
-const RiskCourse = () => {
+const RiskCoursePage = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos en Riesgo" />
@@ -46,4 +46,4 @@ const RiskCourse = () => {
   );
 };
 
-export default RiskCourse;
+export default RiskCoursePage;

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "AcamedicRisk | Profile",
 };
 
-const Profile = () => {
+const ProfilePage = () => {
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-242.5">
@@ -122,4 +122,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

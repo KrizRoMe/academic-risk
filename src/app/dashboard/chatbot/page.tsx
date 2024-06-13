@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "AcademicRisk | Chatbot",
 };
 
-const Chatbot = () => {
+const ChatbotPage = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Tutor IA" />
@@ -243,4 +243,4 @@ const Chatbot = () => {
   );
 };
 
-export default Chatbot;
+export default ChatbotPage;

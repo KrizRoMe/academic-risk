@@ -30,7 +30,7 @@ const data = [
   },
 ];
 
-const Course = () => {
+const CoursePage = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos" />
@@ -42,4 +42,4 @@ const Course = () => {
   );
 };
 
-export default Course;
+export default CoursePage;

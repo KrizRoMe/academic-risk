@@ -45,7 +45,7 @@ const data = [
   },
 ];
 
-const Grade = () => {
+const GradePage = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Calificaciones" />
@@ -57,4 +57,4 @@ const Grade = () => {
   );
 };
 
-export default Grade;
+export default GradePage;
