@@ -72,8 +72,8 @@ const TableCustom = ({
             </tbody>
           </table>
         </div>
-        <div className="flex justify-between border-t border-stroke pt-5 dark:border-strokedark">
-          <p className="font-medium">Showing 1 of 3 pages</p>
+        <div className="flex justify-between border-t border-stroke pb-1 pt-5 dark:border-strokedark">
+          <p className="font-medium">Showing 2 of 3 pages</p>
           <div className="flex">
             <button className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white">
               <svg
