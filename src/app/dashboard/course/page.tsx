@@ -8,42 +8,32 @@ export const metadata: Metadata = {
 };
 
 const columns = [
-  { header: "Curso", field: "curso", span: 3},
-  { header: "Docente", field: "docente", span: 2 },
-  
+  { header: "Curso", field: "curso" },
+  { header: "Docente", field: "docente" },
 ];
 const data = [
   {
     curso: "Calculo Diferencial",
-    docente:"Roberto Perales",
-   
-    
+    docente: "Roberto Perales",
   },
   {
     curso: "Calculo integral",
-    docente:"Roberto Perales",
-    
-    
+    docente: "Roberto Perales",
   },
   {
     curso: "Fisica",
-    docente:"Victor Cabrera Abanto",
-    
-    
+    docente: "Victor Cabrera Abanto",
   },
   {
     curso: "Fisica Moderna",
-    docente:"Victor Cabrera Abanto",
-   
-    
+    docente: "Victor Cabrera Abanto",
   },
- 
 ];
 
-const Curso = () => {
+const Course = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Curso" />
+      <Breadcrumb pageName="Cursos" />
 
       <div className="flex flex-col gap-10">
         <TableCustom columns={columns} data={data}></TableCustom>
@@ -52,4 +42,4 @@ const Curso = () => {
   );
 };
 
-export default Curso;
+export default Course;
