@@ -31,27 +31,27 @@ Web Application focused on reduce the rate of students at academic risk.
 
 4. Set up environment variables:
 
-   - Copy the content of `.env.example` into `.env`.
+   - Copy the content of `.env.example` into `.env`:
 
-   ```bash
-   cp .env.example .env
-   ```
+     ```bash
+     cp .env.example .env
+     ```
 
    - Fill in the values of the environment variables.
 
-5. Set up Database:
+5. Set up database:
 
-   - Create a database in PostgreSQL using compose.yml.
+   - Create a database in PostgreSQL using compose.yml:
 
-   ```bash
-   docker-compose up -d
-   ```
+     ```bash
+     docker-compose up -d
+     ```
 
-   - Run the migrations.
+   - Run the migrations:
 
-   ```bash
-   pnpx prisma migrate dev
-   ```
+     ```bash
+     pnpx prisma migrate dev
+     ```
 
 6. Start the development server and navigate to <http://127.0.0.1:3000/> to access the application.
 
