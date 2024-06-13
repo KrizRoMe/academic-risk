@@ -416,8 +416,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <Link
                   href="/dashboard/cursos"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("cursos") &&
-                    "bg-graydark dark:bg-meta-4"
+                    pathname.includes("cursos") && "bg-graydark dark:bg-meta-4"
                   }`}
                 >
                   <svg
@@ -445,7 +444,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  Cursos 
+                  Cursos
                 </Link>
               </li>
               {/* <!-- Menu Item Tables --> */}
