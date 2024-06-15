@@ -2,6 +2,10 @@
   "name": "academic-risk",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "prisma": {
+    "seed": "node --experimental-specifier-resolution=node --loader ts-node/esm prisma/seed/main.seed.ts"
+  },
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",

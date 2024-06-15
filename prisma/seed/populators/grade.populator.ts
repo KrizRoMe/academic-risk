@@ -1,4 +1,4 @@
-import { prisma } from "@/libs/prisma";
+import { prisma } from "../utils/main.utils";
 import { gradeData } from "../../data/grade.data";
 
 export const gradePopulator = async () => {
@@ -11,13 +11,19 @@ export const gradePopulator = async () => {
     });
     const academicPeriod = await prisma.academicPeriod.findFirst({
       where: {
-        yearId: grade.academicPeriod.year,
-        semester: grade.academicPeriod.semester,
+        yearId: 1,
+        semester: 1,
       },
     });
 
-    if (!course || !student || !academicPeriod) {
-      throw new Error("Course, student or academic period not found");
+    if (!course) {
+      throw new Error("Course not found");
+    }
+    if (!student) {
+      throw new Error("Student not found");
+    }
+    if (!academicPeriod) {
+      throw new Error("Academic period not found");
     }
 
     const gradeFound = await prisma.grade.findFirst({

@@ -4,23 +4,24 @@ import { coursePopulator } from "./populators/course.populator";
 import { gradePopulator } from "./populators/grade.populator";
 import { riskCoursePopulator } from "./populators/risk-course.populator";
 import { studentPopulator } from "./populators/student.populator";
-import { prisma } from "@/libs/prisma";
+import { prisma } from "./utils/main.utils";
 
 class MainSeed {
   start = async () => {
-    console.log("####----<><><><> Starting Seed <><><><>----####");
+    console.log("####----<><><><> Starting Seed --------------");
 
-    const populator_list = this.get_populator_list();
+    const populatorList = this.get_populator_list();
 
-    for (const populator of populator_list) {
+    for (const populator of populatorList) {
+      console.log(`####----Populating ${populator.name}`);
       await populator();
     }
 
-    console.log("####----<><><><> Seed Finished <><><><>----####");
+    console.log("####----<><><><> Seed Finished --------------");
   };
 
   get_populator_list = () => {
-    const populator_list = [
+    const populatorList = [
       academicYearPopulator,
       academicPeriodPopulator,
       studentPopulator,
@@ -28,12 +29,11 @@ class MainSeed {
       gradePopulator,
       riskCoursePopulator,
     ];
-    return populator_list;
+    return populatorList;
   };
 }
 
 const mainSeed = new MainSeed();
-
 mainSeed
   .start()
   .catch((e) => {
