@@ -3,7 +3,7 @@ import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 const Calendar = () => {
   return (
     <div className="mx-auto max-w-7xl">
-      <Breadcrumb pageName="Actividades" />
+      <Breadcrumb pageName="Calendario de Actividades" />
       {/* <!-- ====== Calendar Section Start ====== --> */}
       <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <table className="w-full">
