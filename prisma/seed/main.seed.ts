@@ -4,6 +4,7 @@ import { coursePopulator } from "./populators/course.populator";
 import { gradePopulator } from "./populators/grade.populator";
 import { riskCoursePopulator } from "./populators/risk-course.populator";
 import { studentPopulator } from "./populators/student.populator";
+import { userPopulator } from "./populators/user.populator";
 import { prisma } from "./utils/main.utils";
 
 class MainSeed {
@@ -28,6 +29,7 @@ class MainSeed {
       coursePopulator,
       gradePopulator,
       riskCoursePopulator,
+      userPopulator,
     ];
     return populatorList;
   };

@@ -1,13 +1,20 @@
+"use client";
+
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Image from "next/image";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { User } from "@prisma/client";
 
-export const metadata: Metadata = {
-  title: "AcamedicRisk | Profile",
-};
+// export const metadata: Metadata = {
+//   title: "AcamedicRisk | Profile",
+// };
 
 const ProfilePage = () => {
+  const { data: session, status }: any = useSession();
+
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-242.5">
@@ -92,7 +99,7 @@ const ProfilePage = () => {
             <div className="mt-4">
               <p className="font-medium">👋 Bienvenido</p>
               <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                Danish Heilium
+                {status !== "loading" && session?.user?.username}
               </h3>
               <div className="mx-auto mb-5.5 mt-4.5 grid max-w-150 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
                 <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
