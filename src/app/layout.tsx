@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/css/satoshi.css";
 import "@/css/style.css";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "AcademicRisk",
@@ -19,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">{children}</div>
+        <Providers>
+          <div className="dark:bg-boxdark-2 dark:text-bodydark">{children}</div>
+        </Providers>
       </body>
     </html>
   );

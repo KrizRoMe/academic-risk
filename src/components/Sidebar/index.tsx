@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import SidebarLinkGroup from "./SidebarLinkGroup";
+import { useSession } from "next-auth/react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -12,6 +12,10 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+  const { data: session, status }: any = useSession();
+
+  console.log(session);
+
   const pathname = usePathname();
 
   const trigger = useRef<any>(null);
@@ -134,111 +138,114 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Profile --> */}
+              {status !== "loading" && session.user.role === "STUDENT" && (
+                <>
+                  {/* <!-- Menu Item Courses --> */}
+                  <li>
+                    <Link
+                      href="/dashboard/course"
+                      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes("/dashboard/course") &&
+                        "bg-graydark dark:bg-meta-4"
+                      }`}
+                    >
+                      <Image
+                        width={20}
+                        height={20}
+                        src={"/images/sidebar/course.svg"}
+                        alt="course"
+                        priority
+                      />
+                      Cursos
+                    </Link>
+                  </li>
+                  {/* <!-- Menu Item Courses --> */}
 
-              {/* <!-- Menu Item Courses --> */}
-              <li>
-                <Link
-                  href="/dashboard/course"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/dashboard/course") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <Image
-                    width={20}
-                    height={20}
-                    src={"/images/sidebar/course.svg"}
-                    alt="course"
-                    priority
-                  />
-                  Cursos
-                </Link>
-              </li>
-              {/* <!-- Menu Item Courses --> */}
+                  {/* <!-- Menu Item Grade --> */}
+                  <li>
+                    <Link
+                      href="/dashboard/grade"
+                      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes("/dashboard/grade") &&
+                        "bg-graydark dark:bg-meta-4"
+                      }`}
+                    >
+                      <Image
+                        width={20}
+                        height={20}
+                        src={"/images/sidebar/grade.svg"}
+                        alt="grade"
+                        priority
+                      />
+                      Notas
+                    </Link>
+                  </li>
+                  {/* <!-- Menu Item Grade --> */}
 
-              {/* <!-- Menu Item Grade --> */}
-              <li>
-                <Link
-                  href="/dashboard/grade"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/dashboard/grade") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <Image
-                    width={20}
-                    height={20}
-                    src={"/images/sidebar/grade.svg"}
-                    alt="grade"
-                    priority
-                  />
-                  Notas
-                </Link>
-              </li>
-              {/* <!-- Menu Item Grade --> */}
+                  {/* <!-- Menu Item Activity Calendar --> */}
+                  <li>
+                    <Link
+                      href="/dashboard/activity-calendar"
+                      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes("/dashboard/activity-calendar") &&
+                        "bg-graydark dark:bg-meta-4"
+                      }`}
+                    >
+                      <Image
+                        width={20}
+                        height={20}
+                        src={"/images/sidebar/activity-calendar.svg"}
+                        alt="activity-calendar"
+                        priority
+                      />
+                      Calendario
+                    </Link>
+                  </li>
+                  {/* <!-- Menu Item Activity Calendar --> */}
 
-              {/* <!-- Menu Item Activity Calendar --> */}
-              <li>
-                <Link
-                  href="/dashboard/activity-calendar"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/dashboard/activity-calendar") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <Image
-                    width={20}
-                    height={20}
-                    src={"/images/sidebar/activity-calendar.svg"}
-                    alt="activity-calendar"
-                    priority
-                  />
-                  Calendario
-                </Link>
-              </li>
-              {/* <!-- Menu Item Activity Calendar --> */}
+                  {/* <!-- Menu Item Risk Course --> */}
+                  <li>
+                    <Link
+                      href="/dashboard/risk-course"
+                      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes("/dashboard/risk-course") &&
+                        "bg-graydark dark:bg-meta-4"
+                      }`}
+                    >
+                      <Image
+                        width={20}
+                        height={20}
+                        src={"/images/sidebar/risk-course.svg"}
+                        alt="risk-course"
+                        priority
+                      />
+                      Cursos en Riesgo
+                    </Link>
+                  </li>
+                  {/* <!-- Menu Item Risk Course --> */}
 
-              {/* <!-- Menu Item Risk Course --> */}
-              <li>
-                <Link
-                  href="/dashboard/risk-course"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/dashboard/risk-course") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <Image
-                    width={20}
-                    height={20}
-                    src={"/images/sidebar/risk-course.svg"}
-                    alt="risk-course"
-                    priority
-                  />
-                  Cursos en Riesgo
-                </Link>
-              </li>
-              {/* <!-- Menu Item Risk Course --> */}
-
-              {/* <!-- Menu Item Chatbot --> */}
-              <li>
-                <Link
-                  href="/dashboard/chatbot"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("/dashboard/chatbot") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <Image
-                    width={20}
-                    height={20}
-                    src={"/images/sidebar/chatbot.svg"}
-                    alt="chatbot"
-                    priority
-                  />
-                  Tutor IA
-                </Link>
-              </li>
-              {/* <!-- Menu Item Chatbot --> */}
+                  {/* <!-- Menu Item Chatbot --> */}
+                  <li>
+                    <Link
+                      href="/dashboard/chatbot"
+                      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                        pathname.includes("/dashboard/chatbot") &&
+                        "bg-graydark dark:bg-meta-4"
+                      }`}
+                    >
+                      <Image
+                        width={20}
+                        height={20}
+                        src={"/images/sidebar/chatbot.svg"}
+                        alt="chatbot"
+                        priority
+                      />
+                      Tutor IA
+                    </Link>
+                  </li>
+                  {/* <!-- Menu Item Chatbot --> */}
+                </>
+              )}
             </ul>
           </div>
         </nav>
