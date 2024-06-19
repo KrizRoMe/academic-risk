@@ -1,45 +1,46 @@
-import { Metadata } from "next";
+"use client"; 
+
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
 
-export const metadata: Metadata = {
-  title: "AcademicRisk | Cursos",
-};
-
 const columns = [
-  { header: "Curso", field: "curso" },
-  { header: "Docente", field: "docente" },
-];
-const data = [
-  {
-    curso: "Calculo Diferencial",
-    docente: "Roberto Perales",
-  },
-  {
-    curso: "Calculo integral",
-    docente: "Roberto Perales",
-  },
-  {
-    curso: "Fisica",
-    docente: "Victor Cabrera Abanto",
-  },
-  {
-    curso: "Fisica Moderna",
-    docente: "Victor Cabrera Abanto",
-  },
+  { header: "Codigo", field: "code" },
+  { header: "Nombre", field: "name" },
 ];
 
-const CoursePage = () => {
+const CourseList = () => {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/course');
+        if (!response.ok) throw new Error("Error fetching data");
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <DefaultLayout>
+      <Head>
+        <title>AcademicRisk | Cursos</title>
+      </Head>
       <Breadcrumb pageName="Cursos" />
-
       <div className="flex flex-col gap-10">
-        <TableCustom columns={columns} data={data}></TableCustom>
+        <TableCustom columns={columns} data={courses} />
       </div>
     </DefaultLayout>
   );
 };
 
-export default CoursePage;
+export default CourseList;
+

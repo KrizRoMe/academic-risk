@@ -10,7 +10,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "node --loader ts-node/esm prisma/seed/main.seed.ts"
   },
   "dependencies": {
     "@prisma/client": "5.15.0",
@@ -32,4 +33,5 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
+
 }
