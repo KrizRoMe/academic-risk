@@ -48,7 +48,7 @@ const data = [
 const GradePage = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Calificaciones" />
+      <Breadcrumb pageName="Notas" />
 
       <div className="flex flex-col gap-10">
         <TableCustom columns={columns} data={data}></TableCustom>

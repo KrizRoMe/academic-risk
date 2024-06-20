@@ -1,8 +1,7 @@
-import prisma from "@/libs/prisma";
+import { prisma } from "@/libs/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcrypt-ts";
 import NextAuth from "next-auth/next";
-import { User } from "@prisma/client";
 
 const authOptions = {
   providers: [
