@@ -31,10 +31,11 @@ Web Application focused on reduce the rate of students at academic risk.
 
 4. Set up environment variables:
 
-   - Copy the content of `.env.example` into `.env`:
+   - Copy the content of `.env.example` into `.env` and `.env.local`:
 
      ```bash
      cp .env.example .env
+     cp .env.example .env.local
      ```
 
    - Fill in the values of the environment variables.
