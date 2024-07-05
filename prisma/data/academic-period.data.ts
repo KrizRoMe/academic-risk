@@ -43,14 +43,14 @@ export const academicPeriodData = [
   },
   {
     id: 7,
-    yearId: 4,
+    yearId: 3,
     semester: 1,
     startDate: new Date(),
     endDate: new Date(),
   },
   {
     id: 8,
-    yearId: 4,
+    yearId: 3,
     semester: 2,
     startDate: new Date(),
     endDate: new Date(),

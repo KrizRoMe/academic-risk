@@ -2,59 +2,35 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
+import { getGrades } from "@/app/lib/grade.service";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Grade",
 };
 
 const columns = [
-  { header: "Curso", field: "curso" },
-  { header: "Nota 1", field: "nota1" },
-  { header: "Nota 2", field: "nota2" },
-  { header: "Nota 3", field: "nota3" },
+  { header: "Curso", field: "course" },
+  { header: "Nota 1", field: "value1" },
+  { header: "Nota 2", field: "value2" },
+  { header: "Nota 3", field: "value3" },
   { header: "Promedio", field: "promedio" },
 ];
-const data = [
-  {
-    curso: "Calculo Diferencial",
-    nota1: 12.5,
-    nota2: 12.5,
-    nota3: 12.5,
-    promedio: 12.5,
-  },
-  {
-    curso: "Calculo integral",
-    nota1: 12.5,
-    nota2: 12.5,
-    nota3: 12.5,
-    promedio: 12.5,
-  },
-  {
-    curso: "Fisica",
-    nota1: 12.5,
-    nota2: 12.5,
-    nota3: 12.5,
-    promedio: 12.5,
-  },
-  {
-    curso: "Fisica Moderna",
-    nota1: 12.5,
-    nota2: 12.5,
-    nota3: 12.5,
-    promedio: 12.5,
-  },
-];
 
-const GradePage = () => {
+
+export default async function GradePage() {
+
+  const grades = await getGrades();
+console.log(grades);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Notas" />
 
       <div className="flex flex-col gap-10">
-        <TableCustom columns={columns} data={data}></TableCustom>
+        <TableCustom columns={columns} data={grades}></TableCustom>
       </div>
     </DefaultLayout>
   );
 };
 
-export default GradePage;
+

@@ -1,3 +1,10 @@
+"use client";
+
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { useLocalStorage2 } from "@/hooks/useLocalStorage2";
+
+import { useStore } from "@/libs/zustan/store";
+
 interface Column {
   header: string;
   field: string;
@@ -16,6 +23,46 @@ const TableCustom = ({
 }) => {
   const columnWidth = `${100 / columns.length}%`;
 
+  const [selectedSemester, setSelectedSemester] = useLocalStorage2(
+    "semester",
+    "Todos",
+  );
+
+  const selectedYear = useStore((state) => state.selectedYear);
+
+  const handleClick = (semester: string) => {
+    setSelectedSemester(semester);
+  };
+  console.log(data);
+
+// Filtra los datos basándote en el año y el semestre seleccionados
+const filteredData = data.filter((row) => {
+  let semester;
+  let year;
+
+  if ('semester' in row) {
+    // Si 'semester' existe en el objeto, usar su valor directamente
+    semester = row.semester === 1 ? "1" : "2";
+  } else {
+    // Si 'semester' no existe en el objeto, calcularlo a partir de la fecha
+    const date = new Date(row.createdAt);
+    semester = date.getMonth() < 7 ? "I" : "II";
+  }
+
+  if ('year' in row) {
+    // Si 'year' existe en el objeto, usar su valor directamente
+    year = row.year.toString(); // Convertir el año a cadena
+  } else {
+    // Si 'year' no existe en el objeto, considerar cualquier valor de año como "Todos"
+    year = 'Todos';
+  }
+
+  const yearMatches = selectedYear === "Todos" || year === selectedYear || year === 'Todos';
+  const semesterMatches = selectedSemester === "Todos" || semester === selectedSemester;
+
+  return yearMatches && semesterMatches;
+});
+
   return (
     <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="max-w-full overflow-x-auto px-6">
@@ -27,6 +74,33 @@ const TableCustom = ({
               type="text"
             />
           </div>
+
+          <div className="flex items-center rounded-lg border border-slate-300">
+            <a
+              onClick={() => handleClick("Todos")}
+              className={`inline-flex rounded-l-lg  px-2 py-1 font-medium ${selectedSemester === "Todos" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
+              href="#"
+            >
+              Todos
+            </a>
+
+            <a
+              onClick={() => handleClick("1")}
+              className={`inline-flex  px-2 py-1 font-medium ${selectedSemester === "1" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
+              href="#"
+            >
+              {selectedYear} - I
+            </a>
+
+            <a
+              onClick={() => handleClick("2")}
+              className={`inline-flex rounded-r-lg  px-2 py-1 font-medium ${selectedSemester === "2" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:border-strokedark dark:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
+              href="#"
+            >
+              {selectedYear} - II
+            </a>
+          </div>
+
           <div className="flex items-center font-medium">
             <select className="bg-transparent pl-2">
               <option value="5">5</option>
@@ -53,7 +127,7 @@ const TableCustom = ({
               </tr>
             </thead>
             <tbody>
-              {data.map((row, rowIndex) => (
+              {filteredData.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
                   className="border-t border-[#EEEEEE] dark:border-strokedark"

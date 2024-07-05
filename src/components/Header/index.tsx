@@ -2,7 +2,7 @@ import Link from "next/link";
 import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownUser from "./DropdownUser";
 import Image from "next/image";
-import { useState } from "react";
+import { useStore } from "@/libs/zustan/store";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -10,7 +10,10 @@ const Header = (props: {
   isShowUser: boolean;
 }) => {
 
-  const [selectedYear, setSelectedYear] = useState(localStorage.getItem('selectedYear') || '');
+
+
+  const selectedYear = useStore((state) => state.selectedYear);
+  const setSelectedYear = useStore((state) => state.setSelectedYear);
 
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
@@ -110,17 +113,20 @@ const Header = (props: {
               setSelectedYear(e.target.value);
             }}
             >
-              <option value="" className="text-body dark:text-bodydark">
+              <option value="Todos" className="text-body dark:text-bodydark">
                 Seleccionar Año
               </option>
-              <option value="1" className="text-body dark:text-bodydark">
+              <option value="2024" className="text-body dark:text-bodydark">
                 2024
               </option>
-              <option value="2" className="text-body dark:text-bodydark">
+              <option value="2023" className="text-body dark:text-bodydark">
                 2023
               </option>
-              <option value="3" className="text-body dark:text-bodydark">
+              <option value="2022" className="text-body dark:text-bodydark">
                 2022
+              </option>
+              <option value="Todos" className="text-body dark:text-bodydark">
+                Todos
               </option>
             </select>
             <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">

@@ -37,7 +37,9 @@ export const gradePopulator = async () => {
     if (!gradeFound) {
       await prisma.grade.create({
         data: {
-          value: grade.value,
+          value1: grade.value1,
+          value2: grade.value2,
+          value3: grade.value3,
           studentId: student.id,
           courseId: course.id,
           academicPeriodId: academicPeriod.id,

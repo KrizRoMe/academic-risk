@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import { getCourses } from "@/services/course.service";
+import { getCourses } from "@/app/lib/course.service";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Cursos",
@@ -11,11 +11,19 @@ export const metadata: Metadata = {
 const columns = [
   { header: "Curso", field: "name" },
   { header: "Código", field: "code" },
+  { header: "Docente", field: "teacher" },
 ];
+
+interface Teacher {
+  name: string;
+}
 
 interface Course {
   name: string;
   code: string;
+  semester:number;
+  teacherId: number;
+  teacher: string;
 }
 
 interface CoursePageProps {
@@ -24,8 +32,9 @@ interface CoursePageProps {
 
 export default async function CoursePage() {
 
-  const courses: Course[] = await getCourses();
-
+  let courses: Course[] = await getCourses();
+  console.log(courses);
+  
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos" />
