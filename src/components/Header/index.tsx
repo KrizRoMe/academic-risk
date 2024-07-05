@@ -2,12 +2,16 @@ import Link from "next/link";
 import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownUser from "./DropdownUser";
 import Image from "next/image";
+import { useState } from "react";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
   isShowUser: boolean;
 }) => {
+
+  const [selectedYear, setSelectedYear] = useState(localStorage.getItem('selectedYear') || '');
+
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between gap-2 px-4 py-4 shadow-2 md:px-6 2xl:px-12">
@@ -98,7 +102,14 @@ const Header = (props: {
                 priority
               />
             </span>
-            <select className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ">
+            <select 
+            className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input "
+            value={selectedYear}
+            onChange={(e) => {
+              localStorage.setItem('selectedYear', e.target.value);
+              setSelectedYear(e.target.value);
+            }}
+            >
               <option value="" className="text-body dark:text-bodydark">
                 Seleccionar Año
               </option>

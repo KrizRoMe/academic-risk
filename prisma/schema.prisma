@@ -6,6 +6,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 // ####----Enums ------####
 enum Role {
   ADMIN
@@ -14,54 +15,54 @@ enum Role {
 
 // ####----Models ------####
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
   password  String
-  role      Role      @default(STUDENT)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Student {
-  id        Int       @id @default(autoincrement())
-  code      String    @unique
-  dni       String    @unique @default("")
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  dni       String   @unique @default("")
   name      String
   surname   String
   grades    Grade[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Course {
-  id        Int       @id @default(autoincrement())
-  code      String    @unique
+  id        Int          @id @default(autoincrement())
+  code      String       @unique
   name      String
   grades    Grade[]
   risks     RiskCourse[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 model AcademicYear {
-  id        Int       @id @default(autoincrement())
-  year      Int       @unique
+  id        Int              @id @default(autoincrement())
+  year      Int              @unique
   periods   AcademicPeriod[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 }
 
 model AcademicPeriod {
-  id          Int            @id @default(autoincrement())
-  semester    Int
-  startDate   DateTime
-  endDate     DateTime
-  yearId      Int
-  grades      Grade[]
-  risks       RiskCourse[]
-  year        AcademicYear   @relation(fields: [yearId], references: [id])
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  id        Int          @id @default(autoincrement())
+  semester  Int
+  startDate DateTime
+  endDate   DateTime
+  yearId    Int
+  grades    Grade[]
+  risks     RiskCourse[]
+  year      AcademicYear @relation(fields: [yearId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 model Grade {
