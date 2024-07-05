@@ -16,6 +16,7 @@ interface ChatContextProps {
   chats: Chat[];
   chatContainerRef: React.RefObject<HTMLDivElement>;
   handleSubmit: (e: FormEvent) => void;
+  addMessage: (message: string, isUser: boolean) => void;
 }
 
 const ChatContext = createContext<ChatContextProps | undefined>(undefined);
@@ -35,8 +36,6 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
   const addMessage = (message: string, isUser: boolean) => {
     const id = Math.floor(Math.random() * 1000);
     const currentTime = getCurrentTime();
-
-    console.log({ id, message, isUser, currentTime });
 
     setChats((prevChats) => [
       ...prevChats,
@@ -79,7 +78,9 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
   }, [chats]);
 
   return (
-    <ChatContext.Provider value={{ chats, chatContainerRef, handleSubmit }}>
+    <ChatContext.Provider
+      value={{ chats, chatContainerRef, handleSubmit, addMessage }}
+    >
       {children}
     </ChatContext.Provider>
   );

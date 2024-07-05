@@ -2,12 +2,15 @@
 
 import { useChat } from "@/context/chatbot.context";
 import { Chat } from "@/types/chat";
+import InterventionTypeList from "./InterventionTypeList";
 
 function ListChat() {
   const { chats, chatContainerRef } = useChat();
 
   return (
     <div className="h-full overflow-y-auto p-6" ref={chatContainerRef}>
+      <InterventionTypeList />
+
       {chats.map((chat: Chat) => (
         <div
           key={chat.id}
