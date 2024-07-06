@@ -14,8 +14,6 @@ interface SidebarProps {
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const { data: session, status }: any = useSession();
 
-  console.log(session);
-
   const pathname = usePathname();
 
   const trigger = useRef<any>(null);
