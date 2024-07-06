@@ -36,14 +36,13 @@ export async function getGrades() {
         },
       });
   
-      // Flatten the semester, year and course name in the result
       const flattenedGrades = grades.map(grade => ({
         ...grade,
         semester: grade.academicPeriod.semester,
         year: grade.academicPeriod.year.year,
         student: grade.student.name + ' ' + grade.student.surname,
         course: grade.course.name,
-        promedio: (grade.value1 + grade.value2 + grade.value3) / 3, // Calculate the average
+        promedio: (grade.value1 + grade.value2 + grade.value3) / 3,
       }));
   
       return flattenedGrades;

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import { getRiskCourses } from "@/app/lib/riskcourse.service";
+import { getRiskCourses } from "@/app/services/riskcourse.service";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Risk Course",

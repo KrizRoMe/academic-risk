@@ -28,7 +28,6 @@ export async function getRiskCourses() {
       },
     });
 
-    // Flatten the semester, year and course name in the result
     const flattenedRiskCourses = riskCourses.map(riskCourse => ({
       ...riskCourse,
       semester: riskCourse.academicPeriod.semester,

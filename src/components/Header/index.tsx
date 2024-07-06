@@ -9,9 +9,7 @@ const Header = (props: {
   setSidebarOpen: (arg0: boolean) => void;
   isShowUser: boolean;
 }) => {
-
-
-
+  
   const selectedYear = useStore((state) => state.selectedYear);
   const setSelectedYear = useStore((state) => state.setSelectedYear);
 

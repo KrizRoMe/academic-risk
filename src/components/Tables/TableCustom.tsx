@@ -33,35 +33,31 @@ const TableCustom = ({
   const handleClick = (semester: string) => {
     setSelectedSemester(semester);
   };
-  console.log(data);
 
-// Filtra los datos basándote en el año y el semestre seleccionados
-const filteredData = data.filter((row) => {
-  let semester;
-  let year;
+  const filteredData = data.filter((row) => {
+    let semester;
+    let year;
 
-  if ('semester' in row) {
-    // Si 'semester' existe en el objeto, usar su valor directamente
-    semester = row.semester === 1 ? "1" : "2";
-  } else {
-    // Si 'semester' no existe en el objeto, calcularlo a partir de la fecha
-    const date = new Date(row.createdAt);
-    semester = date.getMonth() < 7 ? "I" : "II";
-  }
+    if ("semester" in row) {
+      semester = row.semester === 1 ? "1" : "2";
+    } else {
+      const date = new Date(row.createdAt);
+      semester = date.getMonth() < 7 ? "I" : "II";
+    }
 
-  if ('year' in row) {
-    // Si 'year' existe en el objeto, usar su valor directamente
-    year = row.year.toString(); // Convertir el año a cadena
-  } else {
-    // Si 'year' no existe en el objeto, considerar cualquier valor de año como "Todos"
-    year = 'Todos';
-  }
+    if ("year" in row) {
+      year = row.year.toString();
+    } else {
+      year = "Todos";
+    }
 
-  const yearMatches = selectedYear === "Todos" || year === selectedYear || year === 'Todos';
-  const semesterMatches = selectedSemester === "Todos" || semester === selectedSemester;
+    const yearMatches =
+      selectedYear === "Todos" || year === selectedYear || year === "Todos";
+    const semesterMatches =
+      selectedSemester === "Todos" || semester === selectedSemester;
 
-  return yearMatches && semesterMatches;
-});
+    return yearMatches && semesterMatches;
+  });
 
   return (
     <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
