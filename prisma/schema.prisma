@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 // ####----Enums ------####
 enum Role {
   ADMIN
@@ -74,10 +73,12 @@ model AcademicPeriod {
 }
 
 model Grade {
+
   id               Int            @id @default(autoincrement())
   value1           Float
   value2           Float
   value3           Float
+
   studentId        Int
   courseId         Int
   academicPeriodId Int
@@ -92,11 +93,13 @@ model RiskCourse {
   id               Int             @id @default(autoincrement())
   courseId         Int
   academicPeriodId Int
+
   failures         Int
   course           Course         @relation(fields: [courseId], references: [id])
   academicPeriod   AcademicPeriod @relation(fields: [academicPeriodId], references: [id])
   updatedAt        DateTime       @updatedAt
   createdAt        DateTime       @default(now())
+
 }
 
 model Intervention {
