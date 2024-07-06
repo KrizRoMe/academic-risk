@@ -17,7 +17,6 @@ export async function getCourses() {
       },
     });
 
-    // Flatten the teacher name in the result
     const flattenedCourses = courses.map(course => ({
       ...course,
       teacher: course.teacher.name,

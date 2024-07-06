@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import { getGrades } from "@/app/lib/grade.service";
+import { getGrades } from "@/app/services/grade.service";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Grade",
@@ -15,7 +15,6 @@ const columns = [
   { header: "Nota 3", field: "value3" },
   { header: "Promedio", field: "promedio" },
 ];
-
 
 export default async function GradePage() {
 

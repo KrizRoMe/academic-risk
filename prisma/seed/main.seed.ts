@@ -32,7 +32,6 @@ class MainSeed {
       gradePopulator,
       riskCoursePopulator,
       userPopulator,
- 
     ];
     return populatorList;
   };
