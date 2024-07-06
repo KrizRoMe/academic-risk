@@ -48,16 +48,16 @@ Web Application focused on reduce the rate of students at academic risk.
      docker-compose up -d
      ```
 
-   - Populate the database with the initial data:
-
-     ```bash
-     pnpm prisma db seed
-     ```
-
    - Run the migrations:
 
      ```bash
      pnpm prisma migrate dev
+     ```
+
+   - Populate the database with the initial data:
+
+     ```bash
+     pnpm prisma db seed
      ```
 
 6. Start the development server and navigate to <http://127.0.0.1:3000/> to access the application.
