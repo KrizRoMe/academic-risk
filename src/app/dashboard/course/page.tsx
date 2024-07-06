@@ -2,44 +2,46 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
+import { getCourses } from "@/app/lib/course.service";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Cursos",
 };
 
 const columns = [
-  { header: "Curso", field: "curso" },
-  { header: "Docente", field: "docente" },
-];
-const data = [
-  {
-    curso: "Calculo Diferencial",
-    docente: "Roberto Perales",
-  },
-  {
-    curso: "Calculo integral",
-    docente: "Roberto Perales",
-  },
-  {
-    curso: "Fisica",
-    docente: "Victor Cabrera Abanto",
-  },
-  {
-    curso: "Fisica Moderna",
-    docente: "Victor Cabrera Abanto",
-  },
+  { header: "Curso", field: "name" },
+  { header: "Código", field: "code" },
+  { header: "Docente", field: "teacher" },
 ];
 
-const CoursePage = () => {
+interface Teacher {
+  name: string;
+}
+
+interface Course {
+  name: string;
+  code: string;
+  semester:number;
+  teacherId: number;
+  teacher: string;
+}
+
+interface CoursePageProps {
+  courses: Course[];
+}
+
+export default async function CoursePage() {
+
+  let courses: Course[] = await getCourses();
+  console.log(courses);
+  
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos" />
 
       <div className="flex flex-col gap-10">
-        <TableCustom columns={columns} data={data}></TableCustom>
+        <TableCustom columns={columns} data={courses}></TableCustom>
       </div>
     </DefaultLayout>
   );
-};
-
-export default CoursePage;
+}
