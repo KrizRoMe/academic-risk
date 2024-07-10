@@ -99,10 +99,10 @@ const TableCustom = ({
 
           <div className="flex items-center font-medium">
             <select className="bg-transparent pl-2">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
+              <option value="5">10</option>
+              <option value="10">20</option>
+              <option value="20">30</option>
+              <option value="50">40</option>
             </select>
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
           </div>
@@ -143,7 +143,7 @@ const TableCustom = ({
           </table>
         </div>
         <div className="flex justify-between border-t border-stroke pb-1 pt-5 dark:border-strokedark">
-          <p className="font-medium">Showing 2 of 3 pages</p>
+          <p className="font-medium">Showing 1 of 3 pages</p>
           <div className="flex">
             <button className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white">
               <svg
