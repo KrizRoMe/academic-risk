@@ -3,7 +3,7 @@
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useLocalStorage2 } from "@/hooks/useLocalStorage2";
 
-import { useStore } from "@/libs/zustan/store";
+import { useStore } from "@/libs/zustand/store";
 
 interface Column {
   header: string;

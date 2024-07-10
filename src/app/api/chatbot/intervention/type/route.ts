@@ -29,11 +29,11 @@ export async function POST(request: Request) {
 
     const SCOPE_PROMPT_OPTIONS = {
       AUTOEVALUATION:
-        "Hazme preguntas sobre autoevaluación académica simulando ser un experto en el tema. Recuerda seguir haciendo preguntas despeus de cada respuesta que des hasta que el usuario decida finalizar la conversación. Una pregunta a la vez.",
+        "Simula ser un experto en autoevaluación académica y hazme preguntas detalladas sobre mis fortalezas y debilidades en mis estudios. Habla como un psicólogo experto y sigue preguntando después de cada respuesta hasta que decida finalizar la conversación. Una pregunta a la vez, en español. Usa como fuente de datos información solo en el idioma español.",
       STUDY_HABITS:
-        "Hazme preguntas sobre hábitos de estudio simulando ser un experto en el tema. Recuerda seguir haciendo preguntas despeus de cada respuesta que des hasta que el usuario decida finalizar la conversación. Una pregunta a la vez.",
+        "Simula ser un experto en hábitos de estudio y hazme preguntas detalladas sobre mi rutina de estudio diaria. Habla como un psicólogo experto y sigue preguntando después de cada respuesta hasta que decida finalizar la conversación. Una pregunta a la vez, en español. Usa como fuente de datos información solo en el idioma español.",
       ACADEMIC_GOALS:
-        "Hazme preguntas sobre objetivos académicos simulando ser un experto en el tema. Recuerda seguir haciendo preguntas despeus de cada respuesta que des hasta que el usuario decida finalizar la conversación. Una pregunta a la vez.",
+        "Simula ser un experto en objetivos académicos y hazme preguntas detalladas sobre mis metas académicas a corto y largo plazo. Habla como un psicólogo experto y sigue preguntando después de cada respuesta hasta que decida finalizar la conversación. Una pregunta a la vez, en español. Usa como fuente de datos información solo en el idioma español.",
     };
 
     const scopePrompt = SCOPE_PROMPT_OPTIONS[typeKey];

@@ -19,7 +19,10 @@ function ListChat() {
           <div
             className={`max-w-[80%] rounded border border-stroke bg-gray-2 p-3.5 text-black shadow-md dark:border-strokedark dark:bg-boxdark-2 dark:text-white ${chat.isUser && "bg-primary text-white dark:bg-primary dark:text-white"}`}
           >
-            <p className="text-sm leading-relaxed">{chat.message}</p>
+            <p
+              className="text-sm leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: chat.message }}
+            />
             <span
               className={`mt-1.5 flex justify-between text-xs text-black dark:text-white ${chat.isUser ? "bg-primary text-white" : ""}`}
             >

@@ -2,14 +2,13 @@ import Link from "next/link";
 import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownUser from "./DropdownUser";
 import Image from "next/image";
-import { useStore } from "@/libs/zustan/store";
+import { useStore } from "@/libs/zustand/store";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
   isShowUser: boolean;
 }) => {
-  
   const selectedYear = useStore((state) => state.selectedYear);
   const setSelectedYear = useStore((state) => state.setSelectedYear);
 
@@ -103,13 +102,13 @@ const Header = (props: {
                 priority
               />
             </span>
-            <select 
-            className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input "
-            value={selectedYear}
-            onChange={(e) => {
-              localStorage.setItem('selectedYear', e.target.value);
-              setSelectedYear(e.target.value);
-            }}
+            <select
+              className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input "
+              value={selectedYear}
+              onChange={(e) => {
+                localStorage.setItem("selectedYear", e.target.value);
+                setSelectedYear(e.target.value);
+              }}
             >
               <option value="Todos" className="text-body dark:text-bodydark">
                 Seleccionar Año
