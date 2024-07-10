@@ -181,8 +181,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   {/* <!-- Menu Item Grade --> */}
 
                   {/* <!-- Menu Item Activity Calendar --> */}
-                  <li>
-                    {/* <Link
+                  {/* <li>
+                    <Link
                       href="/dashboard/activity-calendar"
                       className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                         pathname.includes("/dashboard/activity-calendar") &&
@@ -197,8 +197,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         priority
                       />
                       Calendario
-                    </Link> */}
-                  </li>
+                    </Link>
+                  </li> */}
                   {/* <!-- Menu Item Activity Calendar --> */}
 
                   {/* <!-- Menu Item Risk Course --> */}
