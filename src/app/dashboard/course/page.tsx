@@ -21,7 +21,7 @@ interface Teacher {
 interface Course {
   name: string;
   code: string;
-  semester:number;
+  semester: number;
   teacherId: number;
   teacher: string;
 }
@@ -31,10 +31,8 @@ interface CoursePageProps {
 }
 
 export default async function CoursePage() {
-
   let courses: Course[] = await getCourses();
-  console.log(courses);
-  
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos" />

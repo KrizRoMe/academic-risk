@@ -17,9 +17,7 @@ const columns = [
 ];
 
 export default async function GradePage() {
-
   const grades = await getGrades();
-console.log(grades);
 
   return (
     <DefaultLayout>
@@ -30,6 +28,4 @@ console.log(grades);
       </div>
     </DefaultLayout>
   );
-};
-
-
+}
