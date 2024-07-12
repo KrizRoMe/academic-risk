@@ -9,6 +9,7 @@ export async function getCourses() {
         code: true,
         teacherId: true,
         semester: true,
+        year: true,
         teacher: {
           select: {
             name: true,
@@ -17,7 +18,7 @@ export async function getCourses() {
       },
     });
 
-    const flattenedCourses = courses.map(course => ({
+    const flattenedCourses = courses.map((course) => ({
       ...course,
       teacher: course.teacher.name,
     }));

@@ -22,6 +22,7 @@ interface Course {
   name: string;
   code: string;
   semester: number;
+  year: number;
   teacherId: number;
   teacher: string;
 }

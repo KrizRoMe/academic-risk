@@ -26,9 +26,9 @@ class MainSeed {
     const populatorList = [
       academicYearPopulator,
       academicPeriodPopulator,
-      studentPopulator, 
+      studentPopulator,
       teacherPopulator,
-      coursePopulator,    
+      coursePopulator,
       gradePopulator,
       riskCoursePopulator,
       userPopulator,

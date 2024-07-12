@@ -38,6 +38,8 @@ const TableCustom = ({
     let semester;
     let year;
 
+    console.log("row", row);
+
     if ("semester" in row) {
       semester = row.semester === 1 ? "1" : "2";
     } else {

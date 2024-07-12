@@ -1,5 +1,5 @@
 // store.ts
-import create from 'zustand';
+import { create } from "zustand";
 
 // Define your store's state.
 interface State {
@@ -11,8 +11,8 @@ interface State {
 
 // Create the store.
 export const useStore = create<State>((set) => ({
-  selectedYear: 'Todos',
+  selectedYear: "Todos",
   setSelectedYear: (year) => set({ selectedYear: year }),
-  selectedSemester: 'Todos',
+  selectedSemester: "Todos",
   setSelectedSemester: (semester) => set({ selectedSemester: semester }),
 }));
