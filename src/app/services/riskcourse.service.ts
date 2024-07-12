@@ -28,10 +28,9 @@ export async function getRiskCourses() {
       },
     });
 
-    const flattenedRiskCourses = riskCourses.map(riskCourse => ({
+    const flattenedRiskCourses = riskCourses.map((riskCourse) => ({
       ...riskCourse,
       semester: riskCourse.academicPeriod.semester,
-      year: riskCourse.academicPeriod.year.year,
       course: riskCourse.course.name,
     }));
 

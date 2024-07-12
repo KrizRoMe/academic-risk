@@ -13,7 +13,6 @@ const columns = [
   { header: "Código", field: "code" },
   { header: "Docente", field: "teacher" },
 ];
-
 interface Teacher {
   name: string;
 }
@@ -33,7 +32,6 @@ interface CoursePageProps {
 
 export default async function CoursePage() {
   let courses: Course[] = await getCourses();
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos" />

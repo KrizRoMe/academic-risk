@@ -12,6 +12,16 @@ const Header = (props: {
   const selectedYear = useStore((state) => state.selectedYear);
   const setSelectedYear = useStore((state) => state.setSelectedYear);
 
+  const actualPage = useStore((state) => state.actualPage);
+
+  if (actualPage === "course") {
+    selectedYear === "Todos";
+  }
+
+  if (actualPage === "risk_courses") {
+    selectedYear === "Todos";
+  }
+
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between gap-2 px-4 py-4 shadow-2 md:px-6 2xl:px-12">
@@ -111,20 +121,22 @@ const Header = (props: {
               }}
             >
               <option value="Todos" className="text-body dark:text-bodydark">
-                Seleccionar Año
-              </option>
-              <option value="2024" className="text-body dark:text-bodydark">
-                2024
-              </option>
-              <option value="2023" className="text-body dark:text-bodydark">
-                2023
-              </option>
-              <option value="2022" className="text-body dark:text-bodydark">
-                2022
-              </option>
-              <option value="Todos" className="text-body dark:text-bodydark">
                 Todos
               </option>
+
+              {actualPage === "grade" && (
+                <>
+                  <option value="2024" className="text-body dark:text-bodydark">
+                    2024
+                  </option>
+                  <option value="2023" className="text-body dark:text-bodydark">
+                    2023
+                  </option>
+                  <option value="2022" className="text-body dark:text-bodydark">
+                    2022
+                  </option>
+                </>
+              )}
             </select>
             <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
               <Image

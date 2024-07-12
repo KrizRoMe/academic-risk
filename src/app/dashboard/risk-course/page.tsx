@@ -3,6 +3,7 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
 import { getRiskCourses } from "@/app/services/riskcourse.service";
+import { useStore } from "@/libs/zustand/store";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Risk Course",
@@ -14,11 +15,8 @@ const columns = [
   { header: "N° Desapbrobados", field: "failures", span: 3 },
 ];
 
-
 export default async function RiskCoursePage() {
-
   const risk = await getRiskCourses();
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos en Riesgo" />
@@ -28,5 +26,4 @@ export default async function RiskCoursePage() {
       </div>
     </DefaultLayout>
   );
-};
-
+}

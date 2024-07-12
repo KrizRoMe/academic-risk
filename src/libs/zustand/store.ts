@@ -7,6 +7,8 @@ interface State {
   setSelectedYear: (year: string) => void;
   selectedSemester: string;
   setSelectedSemester: (semester: string) => void;
+  actualPage: string;
+  setActualPage: (page: string) => void;
 }
 
 // Create the store.
@@ -15,4 +17,6 @@ export const useStore = create<State>((set) => ({
   setSelectedYear: (year) => set({ selectedYear: year }),
   selectedSemester: "Todos",
   setSelectedSemester: (semester) => set({ selectedSemester: semester }),
+  actualPage: "",
+  setActualPage: (page) => set({ actualPage: page }),
 }));
