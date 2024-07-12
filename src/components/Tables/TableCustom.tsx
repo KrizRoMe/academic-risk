@@ -4,6 +4,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useLocalStorage2 } from "@/hooks/useLocalStorage2";
 
 import { useStore } from "@/libs/zustand/store";
+import { useEffect } from "react";
 
 interface Column {
   header: string;
@@ -23,15 +24,20 @@ const TableCustom = ({
 }) => {
   const columnWidth = `${100 / columns.length}%`;
 
-  const [selectedSemester, setSelectedSemester] = useLocalStorage2(
-    "semester",
-    "Todos",
-  );
+  const { setSelectedSemester } = useStore();
+  const { setSelectedYear } = useStore();
+  const selectedSemester = useStore((state) => state.selectedSemester);
 
   const selectedYear = useStore((state) => state.selectedYear);
+  const setActualPage = useStore((state) => state.setActualPage);
+  const actualPage = useStore((state) => state.actualPage);
 
   const handleClick = (semester: string) => {
-    setSelectedSemester(semester);
+    if (selectedYear !== "Todos") {
+      setSelectedSemester(semester);
+    } else {
+      setSelectedSemester("Todos");
+    }
   };
 
   const filteredData = data.filter((row) => {
@@ -61,6 +67,16 @@ const TableCustom = ({
     return yearMatches && semesterMatches;
   });
 
+  useEffect(() => {
+    if (filteredData[0].year) {
+      setActualPage("grade");
+    } else {
+      setActualPage("other");
+      setSelectedYear("Todos");
+      setSelectedSemester("Todos");
+    }
+  }, [actualPage]);
+
   return (
     <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="max-w-full overflow-x-auto px-6">
@@ -76,27 +92,30 @@ const TableCustom = ({
           <div className="flex items-center rounded-lg border border-slate-300">
             <a
               onClick={() => handleClick("Todos")}
-              className={`inline-flex rounded-l-lg  px-2 py-1 font-medium ${selectedSemester === "Todos" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
-              href="#"
+              className={`inline-flex rounded-l-lg px-2 py-1 font-medium ${selectedSemester === "Todos" || selectedYear === "Todos" ? " bg-primary text-white" : " text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3 ${selectedYear === "Todos" ? "rounded-e-lg" : "rounded-e-none"}`}
             >
               Todos
             </a>
 
-            <a
-              onClick={() => handleClick("1")}
-              className={`inline-flex  px-2 py-1 font-medium ${selectedSemester === "1" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
-              href="#"
-            >
-              {selectedYear} - I
-            </a>
-
-            <a
-              onClick={() => handleClick("2")}
-              className={`inline-flex rounded-r-lg  px-2 py-1 font-medium ${selectedSemester === "2" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:border-strokedark dark:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
-              href="#"
-            >
-              {selectedYear} - II
-            </a>
+            {selectedYear !== "Todos" && (
+              <>
+                {" "}
+                <a
+                  onClick={() => handleClick("1")}
+                  className={`inline-flex  px-2 py-1 font-medium ${selectedSemester === "1" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
+                  href="#"
+                >
+                  {selectedYear} - I
+                </a>
+                <a
+                  onClick={() => handleClick("2")}
+                  className={`inline-flex rounded-r-lg  px-2 py-1 font-medium ${selectedSemester === "2" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:border-strokedark dark:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
+                  href="#"
+                >
+                  {selectedYear} - II
+                </a>
+              </>
+            )}
           </div>
 
           <div className="flex items-center font-medium">
