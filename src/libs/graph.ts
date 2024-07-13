@@ -1,3 +1,6 @@
+import { getCourses } from "@/app/services/course.service";
+import { getGrades } from "@/app/services/grade.service";
+import { getRiskCourses } from "@/app/services/riskcourse.service";
 import Groq from "groq-sdk";
 
 const groq = new Groq({
@@ -5,13 +8,21 @@ const groq = new Groq({
 });
 
 export const getChatCompletion = async (message: string) => {
-  const context = {};
+  const atCourses = await getCourses();
+  const atRiskCourses = await getRiskCourses();
+  const atNotes = await getGrades();
+
+  const context = {
+    courses: atCourses,
+    grades: atNotes,
+    coursesAtRisk: atRiskCourses,
+  };
 
   const chatCompletion = await groq.chat.completions.create({
     messages: [
       {
         role: "user",
-        content: `Responde en español al siguiente mensaje: ${message} teniendo en cuenta este contexto: ${context}`,
+        content: `Responde en español al siguiente mensaje: ${message} teniendo en cuenta este contexto: ${JSON.stringify(context)}`,
       },
     ],
     model: "llama3-8b-8192",
