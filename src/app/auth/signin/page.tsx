@@ -41,7 +41,7 @@ const SignIn = () => {
     if (response?.error && !response?.ok) {
       setError(response?.error);
     } else {
-      router.push("/dashboard/profile");
+      router.push("/dashboard/academic-progress");
     }
 
     form.reset();
@@ -49,7 +49,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.push("/dashboard/profile");
+      router.push("/dashboard/academic-progress");
     }
   }, [status, router]);
 
