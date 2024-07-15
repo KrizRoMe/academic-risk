@@ -21,7 +21,7 @@ export const gradeData = [
     value3: 14.5,
 
     studentCode: "2019110295",
-    courseCode: "5202",
+    courseCode: "5104",
     academicPeriod: {
       year: 1,
       semester: 2,
@@ -123,7 +123,7 @@ export const gradeData = [
     value3: 14.5,
 
     studentCode: "2019110295",
-    courseCode: "2202",
+    courseCode: "4104",
     academicPeriod: {
       year: 3,
       semester: 2,
