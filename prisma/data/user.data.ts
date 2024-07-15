@@ -7,7 +7,7 @@ enum Role {
 }
 
 const VL_ADMIN_USERNAME = "admin";
-const VL_ADMIN_PASSWORD = "__admin__";
+const VL_ADMIN_PASSWORD = "admin";
 
 export const getUserData = async () => {
   const adminCredentials = {
