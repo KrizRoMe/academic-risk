@@ -52,9 +52,10 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
     const inputMessage = form.querySelector(
       "input[name=userMessage]",
     ) as HTMLInputElement;
-    inputMessage.disabled = true;
 
+    inputMessage.disabled = true;
     addMessage(userMessage, true);
+    form.reset();
 
     const response = await fetch("/api/chatbot", {
       method: "POST",
@@ -67,8 +68,6 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
 
     addMessage(data, false);
     inputMessage.disabled = false;
-
-    form.reset();
   };
 
   useEffect(() => {
