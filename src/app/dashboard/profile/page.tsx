@@ -5,8 +5,7 @@ import Image from "next/image";
 // import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { User } from "@prisma/client";
+import Link from "next/link";
 
 // export const metadata: Metadata = {
 //   title: "AcamedicRisk | Profile",
@@ -14,6 +13,27 @@ import { User } from "@prisma/client";
 
 const ProfilePage = () => {
   const { data: session, status }: any = useSession();
+
+  const handleSendWhatsappNotification = () => {
+    console.log("Send Whatsapp Notification");
+    // const phone = "51986550234";
+    // const message =
+    //   "Hola, soy tu asesor académico. Te escribo para informarte que tienes 8 cursos en riesgo. Por favor, comunícate conmigo para programar una tutoría.";
+    // fetch("/api/whatsapp", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ phone, message }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+  };
 
   return (
     <DefaultLayout>
@@ -102,25 +122,74 @@ const ProfilePage = () => {
                 {status !== "loading" && session?.user?.username}
               </h3>
               <div className="mx-auto mb-5.5 mt-4.5 grid max-w-150 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
-                <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
-                  <span className="me-1 text-sm">Cursos en Riesgo:</span>
-                  <span className="font-semibold text-black dark:text-white">
-                    8
-                  </span>
-                </div>
-                <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
-                  <span className="me-1 text-sm">Calificación Promedio:</span>
-                  <span className="font-semibold text-black dark:text-white">
-                    12
-                  </span>
-                </div>
-                <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
-                  <span className="me-1 text-sm">Tutorías:</span>
-                  <span className="font-semibold text-black dark:text-white">
-                    3
-                  </span>
-                </div>
+                {status !== "loading" && session.user.role === "STUDENT" ? (
+                  <>
+                    <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                      <span className="me-1 text-sm">Cursos en Riesgo:</span>
+                      <span className="font-semibold text-black dark:text-white">
+                        8
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                      <span className="me-1 text-sm">
+                        Calificación Promedio:
+                      </span>
+                      <span className="font-semibold text-black dark:text-white">
+                        12
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
+                      <span className="me-1 text-sm">Tutorías:</span>
+                      <span className="font-semibold text-black dark:text-white">
+                        3
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                      <span className="me-1 text-sm">Alumnos:</span>
+                      <span className="font-semibold text-black dark:text-white">
+                        267
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                      <span className="me-1 text-sm">Docentes:</span>
+                      <span className="font-semibold text-black dark:text-white">
+                        9
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
+                      <span className="me-1 text-sm">Alumnos en RA:</span>
+                      <span className="font-semibold text-black dark:text-white">
+                        113
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
+              <button
+                onClick={() => handleSendWhatsappNotification()}
+                className="inline-flex items-center justify-center gap-2.5 bg-primary px-6 py-3 text-center font-medium text-white hover:bg-opacity-90"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="icon icon-tabler icons-tabler-outline icon-tabler-bell"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+                  <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+                </svg>
+                Notificar Riesgo Académico
+              </button>
             </div>
           </div>
         </div>

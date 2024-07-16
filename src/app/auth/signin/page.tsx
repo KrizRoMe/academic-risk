@@ -17,7 +17,7 @@ const SignIn = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { status } = useSession();
+  const { data: session, status }: any = useSession();
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>,
@@ -41,15 +41,24 @@ const SignIn = () => {
     if (response?.error && !response?.ok) {
       setError(response?.error);
     } else {
-      router.push("/dashboard/academic-progress");
+      if (session?.user?.role === "STUDENT"){
+        router.push("/dashboard/academic-progress");
+        return
+      }
+      router.push("/dashboard/profile");
     }
 
     form.reset();
   };
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (status !== "authenticated") return
+
+    if (session?.user?.role === "STUDENT" ) {
       router.push("/dashboard/academic-progress");
+    }
+    else if (session?.user?.role === "TEACHER") {
+      router.push("/dashboard/profile");
     }
   }, [status, router]);
 
