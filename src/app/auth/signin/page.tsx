@@ -36,28 +36,26 @@ const SignIn = () => {
       redirect: false,
       ...credentials,
     });
-    setIsLoading(false);
-
     if (response?.error && !response?.ok) {
       setError(response?.error);
     } else {
-      if (session?.user?.role === "STUDENT"){
+      if (session?.user?.role === "STUDENT") {
         router.push("/dashboard/academic-progress");
-        return
+        return;
       }
       router.push("/dashboard/profile");
     }
 
+    setIsLoading(false);
     form.reset();
   };
 
   useEffect(() => {
-    if (status !== "authenticated") return
+    if (status !== "authenticated") return;
 
-    if (session?.user?.role === "STUDENT" ) {
+    if (session?.user?.role === "STUDENT") {
       router.push("/dashboard/academic-progress");
-    }
-    else if (session?.user?.role === "TEACHER") {
+    } else if (session?.user?.role === "TEACHER") {
       router.push("/dashboard/profile");
     }
   }, [status, router]);
