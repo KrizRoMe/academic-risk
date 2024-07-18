@@ -26,6 +26,7 @@
     "react": "^18",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18",
+    "twilio": "^5.2.2",
     "whatsapp-web.js": "^1.24.0",
     "zustand": "^4.5.4"
   },

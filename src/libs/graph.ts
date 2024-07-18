@@ -24,7 +24,7 @@ export const getChatCompletion = async (message: string) => {
     messages: [
       {
         role: "user",
-        content: `Actúa como un psicólogo especializado en tutorías académicas durante una sesión con un alumno universitario. Responde en español al siguiente mensaje: ${message}. Asegúrate de entender el contexto proporcionado: ${JSON.stringify(context)}, pero evita revelar directamente detalles específicos a menos que el mensaje lo requiera. Al finalizar tu respuesta, formula una pregunta que fomente una exploración más profunda del tema discutido sin mencionar información confidencial del sistema`,
+        content: `Actúa como un psicólogo especializado en tutorías académicas durante una sesión con un alumno universitario. Responde en español al siguiente mensaje: ${message}. Asegúrate de entender el contexto proporcionado: ${JSON.stringify(context)}. Al finalizar tu respuesta, formula una pregunta que fomente una exploración más profunda del tema discutido sin mencionar información confidencial del sistema`,
       },
     ],
     model: "llama3-8b-8192",

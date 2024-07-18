@@ -15,24 +15,21 @@ const ProfilePage = () => {
   const { data: session, status }: any = useSession();
 
   const handleSendWhatsappNotification = () => {
-    console.log("Send Whatsapp Notification");
-    // const phone = "51986550234";
-    // const message =
-    //   "Hola, soy tu asesor académico. Te escribo para informarte que tienes 8 cursos en riesgo. Por favor, comunícate conmigo para programar una tutoría.";
-    // fetch("/api/whatsapp", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ phone, message }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+    const phone = "+51986550234";
+    fetch("/api/whatsapp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phone }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
