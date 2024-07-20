@@ -19,25 +19,25 @@ const ProfilePage = () => {
   const { data: session, status }: any = useSession();
   const router = useRouter();
 
-  const handleSendWhatsappNotification = () => {
+  const handleSendWhatsappNotification = async () => {
     const phone = "+51986550234";
 
     setIsLoading(true);
-    fetch("/api/whatsapp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ phone }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        router.push("/dashboard/mail-success");
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
+    try {
+      const response = await fetch("/api/whatsapp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone }),
       });
+      const data = await response.json();
+
+      router.push("/dashboard/mail-success");
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+    }
   };
 
   return (
@@ -152,7 +152,7 @@ const ProfilePage = () => {
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
                           <span className="me-1 text-sm">Tutorías:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            3
+                            30
                           </span>
                         </div>
                       </>

@@ -15,6 +15,32 @@ function InterventionList() {
           message: "Can you share your offer?",
           imgSrc: "/images/user/user-05.png",
         },
+        {
+          name: "Autoevaluación",
+          message: "I cam across your profile and...",
+        },
+        {
+          name: "Hábitos de Estudio",
+          message: "I like your confidence 💪",
+        },
+        {
+          name: "Objetivos Académicos",
+          message: "Can you share your offer?",
+          imgSrc: "/images/user/user-05.png",
+        },
+        {
+          name: "Autoevaluación",
+          message: "I cam across your profile and...",
+        },
+        {
+          name: "Hábitos de Estudio",
+          message: "I like your confidence 💪",
+        },
+        {
+          name: "Objetivos Académicos",
+          message: "Can you share your offer?",
+          imgSrc: "/images/user/user-05.png",
+        },
       ].map((user, index) => (
         <div
           key={index}

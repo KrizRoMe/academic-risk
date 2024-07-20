@@ -9,7 +9,7 @@ function SidebarChat() {
         <h3 className="text-lg font-medium text-black dark:text-white 2xl:text-xl">
           Intervenciones
           <span className="rounded-md border-[.5px] border-stroke bg-gray-2 px-2 py-0.5 text-base font-medium text-black dark:border-strokedark dark:bg-boxdark-2 dark:text-white 2xl:ml-4">
-            3
+            30
           </span>
         </h3>
       </div>

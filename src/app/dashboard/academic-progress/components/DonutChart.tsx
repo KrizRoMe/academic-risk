@@ -58,13 +58,13 @@ const options: ApexOptions = {
 
 const DonutChart: React.FC = () => {
   const [state, setState] = useState<DonutChartState>({
-    series: [25, 40, 10, 15],
+    series: [5, 65, 25, 5],
   });
 
   const handleReset = () => {
     setState((prevState) => ({
       ...prevState,
-      series: [25, 40, 10, 15],
+      series: [5, 65, 25, 5],
     }));
   };
   handleReset;
@@ -131,7 +131,7 @@ const DonutChart: React.FC = () => {
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-danger"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span>Calificaciones Bajas</span>
-              <span> 25% </span>
+              <span> 00 - 10 </span>
             </p>
           </div>
         </div>
@@ -140,7 +140,7 @@ const DonutChart: React.FC = () => {
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-warning"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Calificaciones Regulares </span>
-              <span> 40% </span>
+              <span> 11 - 13</span>
             </p>
           </div>
         </div>
@@ -149,7 +149,7 @@ const DonutChart: React.FC = () => {
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-primary"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Buen Rendimiento </span>
-              <span> 10% </span>
+              <span>14 - 17</span>
             </p>
           </div>
         </div>
@@ -158,7 +158,7 @@ const DonutChart: React.FC = () => {
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-success"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Excelente Rendimiento </span>
-              <span> 15% </span>
+              <span>18 - 20</span>
             </p>
           </div>
         </div>

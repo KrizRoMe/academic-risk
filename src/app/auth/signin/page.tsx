@@ -32,21 +32,24 @@ const SignIn = () => {
     };
 
     setIsLoading(true);
+
     const response = await signIn("credentials", {
       redirect: false,
       ...credentials,
     });
+
     if (response?.error && !response?.ok) {
       setError(response?.error);
+      setIsLoading(false);
+      return;
+    }
+
+    if (session?.user?.role === "STUDENT") {
+      router.push("/dashboard/academic-progress");
     } else {
-      if (session?.user?.role === "STUDENT") {
-        router.push("/dashboard/academic-progress");
-        return;
-      }
       router.push("/dashboard/profile");
     }
 
-    setIsLoading(false);
     form.reset();
   };
 
@@ -58,7 +61,7 @@ const SignIn = () => {
     } else if (session?.user?.role === "TEACHER") {
       router.push("/dashboard/profile");
     }
-  }, [status, router]);
+  }, [status, router, session]);
 
   return (
     <>

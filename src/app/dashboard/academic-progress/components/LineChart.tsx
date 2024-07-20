@@ -128,13 +128,13 @@ const LineChart: React.FC = () => {
   const [state, setState] = useState<LineChartState>({
     series: [
       {
-        name: "Total Tutorias",
-        data: [8, 4, 10, 7, 5, 12, 15, 9, 18, 11, 6, 14],
+        name: "Tutorias",
+        data: [1, 2, 3, 2, 3, 1, 4, 1, 2, 5, 3, 4],
       },
 
       {
         name: "Calificaciones",
-        data: [60, 65, 55, 70, 75, 72, 80, 78, 82, 75, 70, 77],
+        data: [12, 14, 15, 16, 14, 17, 13.5, 14.5, 15.5, 14.5, 13.5, 14.5],
       },
     ],
   });
@@ -150,7 +150,7 @@ const LineChart: React.FC = () => {
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-7">
       <div>
         <h5 className="mb-4 text-xl font-semibold text-black dark:text-white">
-          Tutorias VS Calificaciones
+          Tutorías VS Calificaciones
         </h5>
       </div>
       <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
@@ -172,7 +172,7 @@ const LineChart: React.FC = () => {
               <p className="font-semibold text-secondary">
                 Calificación Promedia
               </p>
-              <p className="text-sm font-medium">16.25</p>
+              <p className="text-sm font-medium">14.5</p>
             </div>
           </div>
         </div>
