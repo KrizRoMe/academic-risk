@@ -53,6 +53,15 @@ const SignIn = () => {
     form.reset();
   };
 
+  const handleShowPassword = () => {
+    const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text'
+    } else {
+      passwordInput.type = 'password'
+    }
+  }
+
   useEffect(() => {
     if (status !== "authenticated") return;
 
@@ -264,22 +273,19 @@ const SignIn = () => {
                       </label>
                       <div className="relative">
                         <input
+                          name="password"
                           type="password"
                           placeholder="Contraseña"
                           className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          name="password"
                           required
                         />
-
-                        <span className="absolute right-4 top-4">
-                          <Image
-                            width={20}
-                            height={20}
-                            src={"/images/signin/password.svg"}
-                            alt="password"
-                            priority
-                          />
-                        </span>
+                        <button type="button" className="absolute right-4 top-4" onClick={() => handleShowPassword()}>
+                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  opacity="0.5"  className="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                          <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                          </svg>
+                        </button>
                       </div>
                     </div>
 
