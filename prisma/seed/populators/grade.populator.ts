@@ -11,8 +11,8 @@ export const gradePopulator = async () => {
     });
     const academicPeriod = await prisma.academicPeriod.findFirst({
       where: {
-        yearId: 1,
-        semester: 1,
+        yearId: grade?.academicPeriod?.year,
+        semester: grade?.academicPeriod?.semester,
       },
     });
 

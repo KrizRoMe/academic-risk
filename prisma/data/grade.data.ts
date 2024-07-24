@@ -1,11 +1,9 @@
 export const gradeData = [
   {
     id: 1,
-
     value1: 14.5,
     value2: 14.5,
     value3: 14.5,
-
     studentCode: "2019110295",
     courseCode: "5101",
     academicPeriod: {
@@ -15,11 +13,9 @@ export const gradeData = [
   },
   {
     id: 2,
-
     value1: 14.5,
     value2: 14.5,
     value3: 14.5,
-
     studentCode: "2019110295",
     courseCode: "5104",
     academicPeriod: {
@@ -29,11 +25,9 @@ export const gradeData = [
   },
   {
     id: 3,
-
     value1: 14.5,
     value2: 14.5,
     value3: 14.5,
-
     studentCode: "2019110295",
     courseCode: "4202",
     academicPeriod: {
@@ -43,11 +37,9 @@ export const gradeData = [
   },
   {
     id: 4,
-
     value1: 14.5,
     value2: 14.5,
     value3: 14.5,
-
     studentCode: "2019110295",
     courseCode: "3105",
     academicPeriod: {
@@ -57,26 +49,16 @@ export const gradeData = [
   },
   {
     id: 5,
-
     value1: 14.5,
     value2: 14.5,
     value3: 15.5,
     studentCode: "2019110295",
     courseCode: "3203",
-    academicPeriodId: 5,
+    academicPeriod: {
+      year: 3,
+      semester: 1,
+    },
   },
-  /*
-  {
-    id: 21,
-    value1: 15.5,
-    value2: 13.5,
-    value3: 14.5,
-
-    studentCode: "2019110295",
-    courseCode: "3204",
-    academicPeriodId: 5,
-  },
-  */
   {
     id: 22,
     value1: 16.5,
@@ -84,7 +66,10 @@ export const gradeData = [
     value3: 13.5,
     studentCode: "2019110295",
     courseCode: "3205",
-    academicPeriodId: 5,
+    academicPeriod: {
+      year: 3,
+      semester: 1,
+    },
   },
   {
     id: 23,
@@ -93,10 +78,12 @@ export const gradeData = [
     value3: 16.5,
     studentCode: "2019110295",
     courseCode: "3206",
-    academicPeriodId: 5,
+    academicPeriod: {
+      year: 3,
+      semester: 1,
+    },
   },
   // 2022 - I
-
   {
     id: 24,
     value1: 10.5,
@@ -104,7 +91,10 @@ export const gradeData = [
     value3: 3.5,
     studentCode: "2019110295",
     courseCode: "3102",
-    academicPeriodId: 4,
+    academicPeriod: {
+      year: 2,
+      semester: 2,
+    },
   },
   {
     id: 30,
@@ -113,15 +103,16 @@ export const gradeData = [
     value3: 3.5,
     studentCode: "2019110295",
     courseCode: "3102",
-    academicPeriodId: 2,
+    academicPeriod: {
+      year: 1,
+      semester: 2,
+    },
   },
   {
     id: 6,
-
     value1: 14.5,
     value2: 14.5,
     value3: 14.5,
-
     studentCode: "2019110295",
     courseCode: "4104",
     academicPeriod: {
@@ -131,15 +122,16 @@ export const gradeData = [
   },
   {
     id: 7,
-
     value1: 14.5,
     value2: 14.5,
     value3: 15.5,
     studentCode: "2019110295",
     courseCode: "3104",
-    academicPeriodId: 4,
+    academicPeriod: {
+      year: 2,
+      semester: 2,
+    },
   },
-
   {
     id: 27,
     value1: 5.5,
@@ -147,7 +139,10 @@ export const gradeData = [
     value3: 4.5,
     studentCode: "2019110295",
     courseCode: "3105",
-    academicPeriodId: 4,
+    academicPeriod: {
+      year: 2,
+      semester: 2,
+    },
   },
   {
     id: 31,
@@ -156,9 +151,11 @@ export const gradeData = [
     value3: 4.5,
     studentCode: "2019110295",
     courseCode: "3105",
-    academicPeriodId: 2,
+    academicPeriod: {
+      year: 1,
+      semester: 2,
+    },
   },
-
   {
     id: 28,
     value1: 16.5,
@@ -166,7 +163,10 @@ export const gradeData = [
     value3: 13.5,
     studentCode: "2019110295",
     courseCode: "3106",
-    academicPeriodId: 4,
+    academicPeriod: {
+      year: 2,
+      semester: 2,
+    },
   },
   {
     id: 29,
@@ -175,7 +175,10 @@ export const gradeData = [
     value3: 6.5,
     studentCode: "2019110295",
     courseCode: "3101",
-    academicPeriodId: 4,
+    academicPeriod: {
+      year: 2,
+      semester: 2,
+    },
   },
   {
     id: 32,
@@ -184,6 +187,9 @@ export const gradeData = [
     value3: 6.5,
     studentCode: "2019110295",
     courseCode: "3101",
-    academicPeriodId: 2,
+    academicPeriod: {
+      year: 1,
+      semester: 2,
+    },
   },
 ];
