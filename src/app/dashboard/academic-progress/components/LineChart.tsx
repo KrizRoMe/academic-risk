@@ -1,7 +1,8 @@
 "use client";
 
+import { Intervention } from "@prisma/client";
 import { ApexOptions } from "apexcharts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
 const options: ApexOptions = {
@@ -125,6 +126,8 @@ interface LineChartState {
 }
 
 const LineChart: React.FC = () => {
+  const [interventionList, setInterventionList] = useState<Intervention[]>([]);
+
   const [state, setState] = useState<LineChartState>({
     series: [
       {
@@ -146,6 +149,18 @@ const LineChart: React.FC = () => {
   };
   handleReset;
 
+  const getInterventionList = async () => {
+    const response = await fetch("/api/chatbot/intervention", {
+      method: "GET",
+    });
+    const interventionList = await response.json();
+    setInterventionList(interventionList);
+  }
+
+  useEffect(() => {
+    getInterventionList();
+  }, []);
+
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-7">
       <div>
@@ -161,7 +176,7 @@ const LineChart: React.FC = () => {
             </span>
             <div className="w-full">
               <p className="font-semibold text-primary">Total Tutorias</p>
-              <p className="text-sm font-medium">30</p>
+              <p className="text-sm font-medium">{interventionList.length}</p>
             </div>
           </div>
           <div className="flex min-w-47.5">
@@ -170,9 +185,9 @@ const LineChart: React.FC = () => {
             </span>
             <div className="w-full">
               <p className="font-semibold text-secondary">
-                Calificación Promedia
+                Calificación Promedio
               </p>
-              <p className="text-sm font-medium">14.5</p>
+              <p className="text-sm font-medium">13</p>
             </div>
           </div>
         </div>

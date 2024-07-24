@@ -6,9 +6,9 @@ import Image from "next/image";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import MailSuccess from "../mail-success/page";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
+import { Intervention, RiskCourse } from "@prisma/client";
 
 // export const metadata: Metadata = {
 //   title: "AcamedicRisk | Profile",
@@ -16,6 +16,9 @@ import Loader from "@/components/common/Loader";
 
 const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [interventionList, setInterventionList] = useState<Intervention[]>([]);
+  const [riskCourseList, setRiskCourseList] = useState<RiskCourse[]>([]);
+
   const { data: session, status }: any = useSession();
   const router = useRouter();
 
@@ -39,6 +42,27 @@ const ProfilePage = () => {
       console.error(error);
     }
   };
+
+  const getInterventionList = async () => {
+    const response = await fetch("/api/chatbot/intervention", {
+      method: "GET",
+    });
+    const interventionList = await response.json();
+    setInterventionList(interventionList);
+  }
+
+  const getRiskCourses = async () => {
+    const response = await fetch("/api/risk-course", {
+      method: "GET",
+    });
+    const riskCourseList = await response.json();
+    setRiskCourseList(riskCourseList);
+  }
+
+  useEffect(() => {
+    getRiskCourses();
+    getInterventionList();
+  }, []);
 
   return (
     <>
@@ -138,7 +162,7 @@ const ProfilePage = () => {
                             Cursos en Riesgo:
                           </span>
                           <span className="font-semibold text-black dark:text-white">
-                            8
+                            {riskCourseList.length}
                           </span>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
@@ -146,13 +170,13 @@ const ProfilePage = () => {
                             Calificación Promedio:
                           </span>
                           <span className="font-semibold text-black dark:text-white">
-                            12
+                            13
                           </span>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
                           <span className="me-1 text-sm">Tutorías:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            30
+                            {interventionList.length}
                           </span>
                         </div>
                       </>

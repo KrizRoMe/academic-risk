@@ -11,12 +11,15 @@ import React, {
 } from "react";
 import { Chat } from "@/types/chat";
 import { getCurrentTime } from "@/utils/getCurrentTime";
+import { Intervention } from "@prisma/client";
 
 interface ChatContextProps {
   chats: Chat[];
+  setChats: React.Dispatch<React.SetStateAction<Chat[]>>;
   chatContainerRef: React.RefObject<HTMLDivElement>;
   handleSubmit: (e: FormEvent) => void;
   addMessage: (message: string, isUser: boolean) => void;
+  setIntervention: React.Dispatch<React.SetStateAction<Intervention | undefined>>;
 }
 
 const ChatContext = createContext<ChatContextProps | undefined>(undefined);
@@ -32,14 +35,15 @@ export const useChat = () => {
 export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
   const [chats, setChats] = useState<Chat[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [intervention, setIntervention] = useState<Intervention>();
 
-  const addMessage = (message: string, isUser: boolean) => {
+  const addMessage = (content: string, is_user_sender: boolean) => {
     const id = Math.floor(Math.random() * 1000);
-    const currentTime = getCurrentTime();
+    const currentTime = new Date()
 
     setChats((prevChats) => [
       ...prevChats,
-      { id, message, isUser, time: currentTime },
+      { id, content, is_user_sender, updatedAt: currentTime },
     ]);
   };
 
@@ -52,14 +56,15 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
     const inputMessage = form.querySelector(
       "input[name=userMessage]",
     ) as HTMLInputElement;
+    const isUser = true;
 
     inputMessage.disabled = true;
-    addMessage(userMessage, true);
+    addMessage(userMessage, isUser);
     form.reset();
 
     const response = await fetch("/api/chatbot", {
       method: "POST",
-      body: JSON.stringify({ userMessage }),
+      body: JSON.stringify({ userMessage, intervention, isUser }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -69,6 +74,29 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
     addMessage(data, false);
     inputMessage.disabled = false;
   };
+
+  const getChatMessageList = async (interventionId: number) => {
+    const response = await fetch("/api/chat-message", {
+      method: "POST",
+      body: JSON.stringify({ interventionId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      console.error("Error fetching chat messages");
+      return;
+    }
+
+    const {chatMessageList} = await response.json();
+
+    console.log("chatMessageList", chatMessageList);
+
+    if (chatMessageList) {
+      setChats(chatMessageList);
+    }
+  }
 
   useEffect(() => {
     if (!chatContainerRef.current) {
@@ -83,9 +111,17 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
     });
   }, [chats]);
 
+  useEffect(() => {
+    if (!intervention) {
+      return
+    }
+
+    getChatMessageList(intervention.id);
+  }, [intervention]);
+
   return (
     <ChatContext.Provider
-      value={{ chats, chatContainerRef, handleSubmit, addMessage }}
+      value={{ chats, setChats, chatContainerRef, handleSubmit, addMessage, setIntervention }}
     >
       {children}
     </ChatContext.Provider>

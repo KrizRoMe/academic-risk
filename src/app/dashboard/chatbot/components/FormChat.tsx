@@ -3,8 +3,7 @@
 import { useChat } from "@/context/chatbot.context";
 
 function FormChat() {
-  const { handleSubmit } = useChat();
-
+  const { chats, handleSubmit } = useChat();
   return (
     <div className="sticky bottom-0 w-full border-t border-stroke bg-white px-6 py-5 dark:border-strokedark dark:bg-boxdark">
       <form
@@ -17,6 +16,7 @@ function FormChat() {
             className="h-13 w-full rounded-md border border-stroke bg-gray pl-5 pr-19 text-black placeholder-body outline-none focus:border-primary dark:border-strokedark dark:bg-boxdark-2 dark:text-white"
             type="text"
             name="userMessage"
+            {...chats.length === 0 && { disabled: true }}
           />
         </div>
         <button

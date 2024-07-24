@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
     const scopePrompt = SCOPE_PROMPT_OPTIONS[typeKey];
 
-    return NextResponse.json({ scopePrompt });
+    return NextResponse.json({ scopePrompt, intervention });
   } catch (error) {
     return NextResponse.json(error);
   }

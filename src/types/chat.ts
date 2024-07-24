@@ -1,6 +1,6 @@
 export type Chat = {
   id: number;
-  message: string;
-  isUser: boolean;
-  time: string;
+  content: string;
+  is_user_sender: boolean;
+  updatedAt: Date;
 };

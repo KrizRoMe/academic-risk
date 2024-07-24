@@ -1,14 +1,40 @@
 import { getChatCompletion } from "@/libs/graph";
+import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {
-    const { userMessage } = await request.json();
+    const { userMessage, intervention, isUser } = await request.json();
 
-    if (!userMessage)
-      NextResponse.json({ userMessage: "No userMessage provided" });
+    if (!intervention || !userMessage)
+      return NextResponse.json({ message: "No Intervention and User message provided" });
 
-    const chatCompletion = await getChatCompletion(userMessage);
+    try {
+      await prisma.chatMessage.create({
+        data: {
+          content: userMessage,
+          is_user_sender: isUser,
+          InterventionId: intervention?.id
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+
+
+    const chatCompletion = await getChatCompletion(userMessage, intervention?.id);
+
+    try {
+      await prisma.chatMessage.create({
+        data: {
+          content: chatCompletion,
+          is_user_sender: false,
+          InterventionId: intervention.id
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
 
     return NextResponse.json(chatCompletion);
   } catch (error) {

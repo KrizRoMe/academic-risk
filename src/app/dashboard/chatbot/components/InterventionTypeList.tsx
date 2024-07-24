@@ -11,7 +11,7 @@ enum InterventionType {
 
 function InterventionTypeList() {
   const { data: session, status }: any = useSession();
-  const { addMessage } = useChat();
+  const { addMessage, setIntervention } = useChat();
   const [isShowInterventionTypeList, SetIsShowInterventionTypeList] =
     useState<boolean>(true);
 
@@ -28,23 +28,25 @@ function InterventionTypeList() {
       },
     });
 
-    const { scopePrompt } = await response.json();
-    await handleSubmitChatbot(scopePrompt);
+    const { scopePrompt, intervention } = await response.json();
+    await handleSubmitChatbot(scopePrompt, intervention);
 
     SetIsShowInterventionTypeList(false);
+    setIntervention(intervention);
   };
 
-  const handleSubmitChatbot = async (userMessage: string) => {
+  const handleSubmitChatbot = async (userMessage: string, intervention: any) => {
+    const isUser = false;
     const response = await fetch("/api/chatbot", {
       method: "POST",
-      body: JSON.stringify({ userMessage }),
+      body: JSON.stringify({ userMessage, intervention, isUser }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     const data = await response.json();
 
-    addMessage(data, false);
+    addMessage(data, isUser);
   };
 
   return (

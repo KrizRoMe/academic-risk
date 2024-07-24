@@ -127,7 +127,7 @@ model ChatMessage {
   id             Int          @id @default(autoincrement())
   InterventionId Int
   content        String
-  is_user_sender Boolean
+  is_user_sender Boolean      @default(false)
   intervention   Intervention @relation(fields: [InterventionId], references: [id])
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
