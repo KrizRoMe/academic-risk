@@ -32,10 +32,10 @@ model User {
 
 model Student {
   id        Int      @id @default(autoincrement())
-  code      String   @unique
+  code      String   @unique @default("")
   dni       String   @unique @default("")
   name      String
-  surname   String
+  surname   String   @default("")
   grades    Grade[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

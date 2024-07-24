@@ -37,9 +37,9 @@ export const gradeData = [
   },
   {
     id: 4,
-    value1: 14.5,
-    value2: 14.5,
-    value3: 14.5,
+    value1: 10.5,
+    value2: 5.5,
+    value3: 8.5,
     studentCode: "2019110295",
     courseCode: "3105",
     academicPeriod: {
