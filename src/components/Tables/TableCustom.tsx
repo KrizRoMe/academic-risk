@@ -1,10 +1,8 @@
 "use client";
 
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { useLocalStorage2 } from "@/hooks/useLocalStorage2";
 
 import { useStore } from "@/libs/zustand/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Column {
   header: string;
@@ -23,7 +21,7 @@ const TableCustom = ({
   data: Data[];
 }) => {
   const columnWidth = `${100 / columns.length}%`;
-
+  const [searchText, setSearchText] = useState("");
   const { setSelectedSemester } = useStore();
   const { setSelectedYear } = useStore();
   const selectedSemester = useStore((state) => state.selectedSemester);
@@ -64,7 +62,14 @@ const TableCustom = ({
     const semesterMatches =
       selectedSemester === "Todos" || semester === selectedSemester;
 
-    return yearMatches && semesterMatches;
+    const searchTextMatches = columns.some(column =>
+      row[column.field]
+        ?.toString()
+        .toLowerCase()
+        .includes(searchText.toLowerCase())
+    );
+
+    return yearMatches && semesterMatches && searchTextMatches;
   });
 
   useEffect(() => {
@@ -86,6 +91,7 @@ const TableCustom = ({
               className="w-full rounded-md border border-stroke px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
               placeholder="Search..."
               type="text"
+              onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
 
