@@ -3,12 +3,15 @@ import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownUser from "./DropdownUser";
 import Image from "next/image";
 import { useStore } from "@/libs/zustand/store";
+import { useSession } from "next-auth/react";
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
   isShowUser: boolean;
 }) => {
+  const { data: session }: any = useSession();
+
   const selectedYear = useStore((state) => state.selectedYear);
   const setSelectedYear = useStore((state) => state.setSelectedYear);
 
@@ -103,50 +106,54 @@ const Header = (props: {
 
         {props.isShowUser && (
           <div className="relative z-20 w-30 bg-white dark:bg-form-input sm:w-50 md:w-70">
-            <span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
-              <Image
-                width={20}
-                height={20}
-                src={"/images/header/year.svg"}
-                alt="Year"
-                priority
-              />
-            </span>
-            <select
-              className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input "
-              value={selectedYear}
-              onChange={(e) => {
-                localStorage.setItem("selectedYear", e.target.value);
-                setSelectedYear(e.target.value);
-              }}
-            >
-              <option value="Todos" className="text-body dark:text-bodydark">
-                Todos
-              </option>
+            {session?.user?.role === "USER" && (
+              <>
+              <span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
+                <Image
+                  width={20}
+                  height={20}
+                  src={"/images/header/year.svg"}
+                  alt="Year"
+                  priority
+                />
+              </span>
+              <select
+                className="relative z-20 w-full appearance-none rounded border bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input "
+                value={selectedYear}
+                onChange={(e) => {
+                  localStorage.setItem("selectedYear", e.target.value);
+                  setSelectedYear(e.target.value);
+                }}
+              >
+                <option value="Todos" className="text-body dark:text-bodydark">
+                  Todos
+                </option>
 
-              {actualPage === "grade" && (
-                <>
-                  <option value="2024" className="text-body dark:text-bodydark">
-                    2024
-                  </option>
-                  <option value="2023" className="text-body dark:text-bodydark">
-                    2023
-                  </option>
-                  <option value="2022" className="text-body dark:text-bodydark">
-                    2022
-                  </option>
-                </>
-              )}
-            </select>
-            <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
-              <Image
-                width={20}
-                height={20}
-                src={"/images/header/select-arrow.svg"}
-                alt="Year"
-                priority
-              />
-            </span>
+                {actualPage === "grade" && (
+                  <>
+                    <option value="2024" className="text-body dark:text-bodydark">
+                      2024
+                    </option>
+                    <option value="2023" className="text-body dark:text-bodydark">
+                      2023
+                    </option>
+                    <option value="2022" className="text-body dark:text-bodydark">
+                      2022
+                    </option>
+                  </>
+                )}
+              </select>
+              <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
+                <Image
+                  width={20}
+                  height={20}
+                  src={"/images/header/select-arrow.svg"}
+                  alt="Year"
+                  priority
+                />
+              </span>
+            </>
+            )}
           </div>
         )}
 

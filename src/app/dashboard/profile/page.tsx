@@ -18,6 +18,7 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
   const [riskCourseList, setRiskCourseList] = useState<RiskCourse[]>([]);
+  const [lengthStudentList, setLengthStudentList] = useState<number>(0)
 
   const { data: session, status }: any = useSession();
   const router = useRouter();
@@ -59,9 +60,27 @@ const ProfilePage = () => {
     setRiskCourseList(riskCourseList);
   }
 
+  const getListStudent = async () => {
+    const response = await fetch("/api/student", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      console.error("Error fetching student list");
+      return;
+    }
+
+    const studentList = await response.json();
+
+    if (studentList) {
+      setLengthStudentList(studentList.length);
+    }
+  }
+
   useEffect(() => {
     getRiskCourses();
     getInterventionList();
+    getListStudent();
   }, []);
 
   return (
@@ -185,7 +204,7 @@ const ProfilePage = () => {
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                           <span className="me-1 text-sm">Alumnos:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            267
+                            {lengthStudentList}
                           </span>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
@@ -197,7 +216,7 @@ const ProfilePage = () => {
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
                           <span className="me-1 text-sm">Alumnos en RA:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            113
+                            {lengthStudentList}
                           </span>
                         </div>
                       </>
@@ -215,9 +234,9 @@ const ProfilePage = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         className="icon icon-tabler icons-tabler-outline icon-tabler-bell"
                       >
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />

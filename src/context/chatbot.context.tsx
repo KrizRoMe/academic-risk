@@ -89,13 +89,9 @@ export const ChatbotProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const {chatMessageList} = await response.json();
+    const chatMessageList = await response.json();
 
-    console.log("chatMessageList", chatMessageList);
-
-    if (chatMessageList) {
-      setChats(chatMessageList);
-    }
+    setChats(chatMessageList);
   }
 
   useEffect(() => {

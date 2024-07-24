@@ -10,7 +10,7 @@ export async function POST(request: Request){
                 InterventionId: interventionId
             }
         });
-        return NextResponse.json({chatMessageList});
+        return NextResponse.json(chatMessageList);
 
     } catch (error) {
         console.error(error);
