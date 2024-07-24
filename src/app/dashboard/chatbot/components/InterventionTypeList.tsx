@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import InterventionTypeCard from "./InterventionTypeCard";
 import { useChat } from "@/context/chatbot.context";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 enum InterventionType {
   AUTOEVALUATION = "Autoevaluación",
@@ -11,7 +11,7 @@ enum InterventionType {
 
 function InterventionTypeList() {
   const { data: session, status }: any = useSession();
-  const { addMessage, setIntervention } = useChat();
+  const { chats, addMessage, setIntervention } = useChat();
   const [isShowInterventionTypeList, SetIsShowInterventionTypeList] =
     useState<boolean>(true);
 
@@ -48,6 +48,15 @@ function InterventionTypeList() {
 
     addMessage(data, isUser);
   };
+
+  useEffect(() => {
+    if (chats.length === 0) {
+      SetIsShowInterventionTypeList(true);
+    }
+    else {
+      SetIsShowInterventionTypeList(false);
+    }
+  }, [chats])
 
   return (
     <>

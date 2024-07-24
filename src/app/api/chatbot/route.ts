@@ -7,7 +7,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const { userMessage, intervention, isUser } = await request.json();
 
     if (!intervention || !userMessage)
-      return NextResponse.json({ message: "No Intervention and User message provided" });
+      return NextResponse.json({ message: "No Intervention and UserMessage provided" });
 
     try {
       await prisma.chatMessage.create({

@@ -13,7 +13,7 @@ export const getChatCompletion = async (message: string, interventionId: number)
     courses: atCourses,
     grades: atNotes,
     coursesAtRisk: atRiskCourses,
-    calificacion_maxima_para_cualquier_curso: 20,
+    calificacion_maxima_para_aprobar_cualquier_curso: 20,
     calificacion_minima_para_aprobar_cualquier_curso: 10.5,
   };
 
@@ -24,7 +24,7 @@ export const getChatCompletion = async (message: string, interventionId: number)
 
   const historyChatIntervention = await getHistoryChatIntervention(interventionId);
 
-  const content = `Actúa como un psicologo especialista en tutorías académicas durante una sesión con un alumno universitario. Responde en español al siguiente mensaje: ${message}. Asegúrate de entender el contexto proporcionado: ${JSON.stringify(context)}. Al finalizar tu respuesta, formula una pregunta que fomente una exploración más profunda del tema discutido sin mencionar información confidencial del sistema. Considera que los cursos en riesgo se consideran aquellos con una calificación menor a 10.5, sigue el hilo de esta conversacion: ${JSON.stringify(historyChatIntervention)}.`;
+  const content = `Actúa como un psicologo especialista en tutorías académicas durante una sesión con un alumno universitario. Responde en español al siguiente mensaje: ${message}. Asegúrate de entender el contexto proporcionado donde se detalles mis calificaciones, cursos, cursos en riesgo, calificacion_maxima_para_aprobar_cualquier_curso y calificacion_minima_para_aprobar_cualquier_curso: ${JSON.stringify(context)}. Al finalizar tu respuesta, formula una pregunta que fomente una exploración más profunda del tema discutido sin mencionar información confidencial del sistema. Considera que los cursos en riesgo se consideran aquellos con una calificación menor a 10.5, sigue el hilo de esta conversacion: ${JSON.stringify(historyChatIntervention)}.`;
 
   const result = await model.generateContent(content)
   const response = result?.response
