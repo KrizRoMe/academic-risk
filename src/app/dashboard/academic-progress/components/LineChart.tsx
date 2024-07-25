@@ -2,6 +2,7 @@
 
 import { Intervention } from "@prisma/client";
 import { ApexOptions } from "apexcharts";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
@@ -126,6 +127,7 @@ interface LineChartState {
 }
 
 const LineChart: React.FC = () => {
+  const { data: session, status }: any = useSession();
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
 
   const [state, setState] = useState<LineChartState>({
@@ -151,7 +153,8 @@ const LineChart: React.FC = () => {
 
   const getInterventionList = async () => {
     const response = await fetch("/api/chatbot/intervention", {
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify({ userId: session?.user?.id }),
     });
     const interventionList = await response.json();
     setInterventionList(interventionList);

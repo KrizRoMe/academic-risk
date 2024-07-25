@@ -19,6 +19,7 @@ const ProfilePage = () => {
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
   const [riskCourseList, setRiskCourseList] = useState<RiskCourse[]>([]);
   const [lengthStudentList, setLengthStudentList] = useState<number>(0)
+  const [lengthTeacherList, setLengthTeacherList] = useState<number>(0)
 
   const { data: session, status }: any = useSession();
   const router = useRouter();
@@ -46,7 +47,8 @@ const ProfilePage = () => {
 
   const getInterventionList = async () => {
     const response = await fetch("/api/chatbot/intervention", {
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify({ userId: session?.user?.id }),
     });
     const interventionList = await response.json();
     setInterventionList(interventionList);
@@ -77,10 +79,28 @@ const ProfilePage = () => {
     }
   }
 
+  const getListTeacher = async () => {
+    const response = await fetch("/api/teacher", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      console.error("Error fetching teacher list");
+      return;
+    }
+
+    const teacherList = await response.json();
+
+    if (teacherList) {
+      setLengthTeacherList(teacherList.length);
+    }
+  }
+
   useEffect(() => {
     getRiskCourses();
     getInterventionList();
     getListStudent();
+    getListTeacher();
   }, []);
 
   return (
@@ -210,7 +230,7 @@ const ProfilePage = () => {
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                           <span className="me-1 text-sm">Docentes:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            9
+                            {lengthTeacherList}
                           </span>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
