@@ -45,6 +45,7 @@ const authOptions = {
   },
   pages: {
     signIn: "/auth/signin",
+    signOut: "/auth/signout",
   },
 };
 
