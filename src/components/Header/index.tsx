@@ -106,7 +106,7 @@ const Header = (props: {
 
         {props.isShowUser && (
           <div className="relative z-20 w-30 bg-white dark:bg-form-input sm:w-50 md:w-70">
-            {session?.user?.role === "USER" && (
+            {session?.user?.role === "STUDENT" && (
               <>
               <span className="absolute left-4 top-1/2 z-30 -translate-y-1/2">
                 <Image
