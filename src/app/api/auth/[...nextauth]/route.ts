@@ -46,6 +46,11 @@ const authOptions = {
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
+    callbacks: {
+      async redirect({ url, baseUrl }: any) {
+        return url.startsWith(baseUrl) ? url : baseUrl;
+      },
+    },
   },
 };
 
