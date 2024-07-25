@@ -171,10 +171,10 @@ const ProfilePage = () => {
                 <div className="mt-4">
                   <p className="font-medium">👋 Bienvenido</p>
                   <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                    {status !== "loading" && session?.user?.username}
+                    {status !== "loading" && session?.user && session?.user?.username}
                   </h3>
                   <div className="mx-auto mb-5.5 mt-4.5 grid max-w-150 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
-                    {status !== "loading" && session.user.role === "STUDENT" ? (
+                    {status !== "loading" && session?.user && session?.user?.role === "STUDENT" ? (
                       <>
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                           <span className="me-1 text-sm">
@@ -222,7 +222,7 @@ const ProfilePage = () => {
                       </>
                     )}
                   </div>
-                  {session.user.role === "ADMIN" && (
+                  {session?.user && session?.user?.role === "ADMIN" && (
                     <button
                       onClick={() => handleSendWhatsappNotification()}
                       className="inline-flex items-center justify-center gap-2.5 bg-primary px-6 py-3 text-center font-medium text-white hover:bg-opacity-90"

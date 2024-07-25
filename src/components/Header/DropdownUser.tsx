@@ -1,13 +1,29 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 const DropdownUser = () => {
+  const router = useRouter();
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false });
+      console.log("Sign out success");
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  }
 
   // close on click outside
   useEffect(() => {
@@ -118,7 +134,7 @@ const DropdownUser = () => {
         </ul>
         <button
           onClick={() =>{
-            signOut({ redirect: true, callbackUrl: '/signin' });
+            handleSignOut();
           }}
           className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
         >

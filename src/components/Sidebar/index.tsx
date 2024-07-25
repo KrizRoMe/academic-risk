@@ -136,7 +136,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Profile --> */}
-              {status !== "loading" && session.user.role === "STUDENT" && (
+              {status !== "loading" && session?.user && session?.user?.role === "STUDENT" && (
                 <>
                   {/* <!-- Academic Progress --> */}
                   <li>
