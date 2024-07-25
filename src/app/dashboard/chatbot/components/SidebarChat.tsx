@@ -4,18 +4,25 @@ import React, { useEffect, useState } from "react";
 import InterventionList from "./InterventionList";
 import { useChat } from "@/context/chatbot.context";
 import { Intervention } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 function SidebarChat() {
+  const { data: session, status }: any = useSession();
+
   const { chats } = useChat();
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
 
   const getInterventionList = async () => {
     const response = await fetch("/api/chatbot/intervention", {
-      method: "GET",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: session?.user?.id }),
     });
-    const interventionList = await response.json();
-    setInterventionList(interventionList);
-  };
+    const data = await response.json();
+    setInterventionList(data);
+  }
 
   useEffect(() => {
     getInterventionList();

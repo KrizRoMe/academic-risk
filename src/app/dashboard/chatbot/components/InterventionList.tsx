@@ -2,6 +2,7 @@
 
 import { useChat } from "@/context/chatbot.context";
 import { Intervention } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 enum InterventionType {
@@ -14,11 +15,17 @@ function InterventionList() {
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
   const [selectedIntervention, setSelectedIntervention] = useState<Intervention | null>(null);
 
+  const { data: session, status }: any = useSession();
   const {chats, setIntervention} = useChat();
+
 
   const getInterventions = async () => {
     const response = await fetch("/api/chatbot/intervention", {
-      method: "GET",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: session?.user?.id }),
     });
     const data = await response.json();
     setInterventionList(data);
