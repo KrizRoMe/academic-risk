@@ -2,6 +2,7 @@
 
 
 import { useStore } from "@/libs/zustand/store";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 interface Column {
@@ -20,6 +21,8 @@ const TableCustom = ({
   columns: Column[];
   data: Data[];
 }) => {
+  const { data: session, status }: any = useSession();
+
   const columnWidth = `${100 / columns.length}%`;
   const [searchText, setSearchText] = useState("");
   const { setSelectedSemester } = useStore();
@@ -95,34 +98,36 @@ const TableCustom = ({
             />
           </div>
 
-          <div className="flex items-center rounded-lg border border-slate-300">
-            <a
-              onClick={() => handleClick("Todos")}
-              className={`inline-flex rounded-l-lg px-2 py-1 font-medium ${selectedSemester === "Todos" || selectedYear === "Todos" ? " bg-primary text-white" : " text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3 ${selectedYear === "Todos" ? "rounded-e-lg" : "rounded-e-none"}`}
-            >
-              Todos
-            </a>
-
-            {selectedYear !== "Todos" && (
-              <>
-                {" "}
-                <a
-                  onClick={() => handleClick("1")}
-                  className={`inline-flex  px-2 py-1 font-medium ${selectedSemester === "1" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
-                  href="#"
-                >
-                  {selectedYear} - I
-                </a>
-                <a
-                  onClick={() => handleClick("2")}
-                  className={`inline-flex rounded-r-lg  px-2 py-1 font-medium ${selectedSemester === "2" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:border-strokedark dark:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
-                  href="#"
-                >
-                  {selectedYear} - II
-                </a>
-              </>
-            )}
-          </div>
+          {session?.user?.role === "STUDENT" && (
+              <div className="flex items-center rounded-lg border border-slate-300">
+              <a
+                onClick={() => handleClick("Todos")}
+                className={`inline-flex rounded-l-lg px-2 py-1 font-medium ${selectedSemester === "Todos" || selectedYear === "Todos" ? " bg-primary text-white" : " text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3 ${selectedYear === "Todos" ? "rounded-e-lg" : "rounded-e-none"}`}
+              >
+                Todos
+              </a>
+  
+              {selectedYear !== "Todos" && (
+                <>
+                  {" "}
+                  <a
+                    onClick={() => handleClick("1")}
+                    className={`inline-flex  px-2 py-1 font-medium ${selectedSemester === "1" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
+                    href="#"
+                  >
+                    {selectedYear} - I
+                  </a>
+                  <a
+                    onClick={() => handleClick("2")}
+                    className={`inline-flex rounded-r-lg  px-2 py-1 font-medium ${selectedSemester === "2" ? "bg-primary text-white" : "text-black"} hover:border-primary hover:bg-primary hover:text-white dark:border-strokedark dark:text-white dark:hover:border-primary sm:px-6 sm:py-3`}
+                    href="#"
+                  >
+                    {selectedYear} - II
+                  </a>
+                </>
+              )}
+            </div>
+          )}
 
           <div className="flex items-center font-medium">
             <select className="bg-transparent pl-2">
