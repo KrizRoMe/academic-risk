@@ -2,7 +2,12 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import { getCourses } from "@/app/services/course.service";
+import {
+  getCourses,
+  getCoursesByStudentId,
+} from "@/app/services/course.service";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Cursos",
@@ -18,12 +23,12 @@ interface Teacher {
 }
 
 interface Course {
-  name: string;
-  code: string;
-  semester: number;
-  year: number;
-  teacherId: number;
-  teacher: string;
+  name?: string;
+  code?: string;
+  semester?: number;
+  year?: number;
+  teacherId?: number;
+  teacher?: string;
 }
 
 interface CoursePageProps {
@@ -31,13 +36,19 @@ interface CoursePageProps {
 }
 
 export default async function CoursePage() {
-  let courses: Course[] = await getCourses();
+  const session: any = await getServerSession(authOptions);
+  const userCode = session?.user.username.toString();
+  let courses: Course[] = await getCoursesByStudentId(userCode);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos" />
-
       <div className="flex flex-col gap-10">
-        <TableCustom columns={columns} data={courses}></TableCustom>
+        {courses.length === 0 ? (
+          <div>TODAVÍA NO TENEMOS ELEMENTOS</div>
+        ) : (
+          <TableCustom columns={columns} data={courses}></TableCustom>
+        )}
       </div>
     </DefaultLayout>
   );

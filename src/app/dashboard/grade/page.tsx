@@ -2,7 +2,10 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import { getGrades } from "@/app/services/grade.service";
+import { getGrades, getGradesByStudentId } from "@/app/services/grade.service";
+import { getServerSession } from "next-auth";
+import { getRiskGradesByStudentId } from "@/app/services/riskcourse.service";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Grade",
@@ -17,14 +20,19 @@ const columns = [
 ];
 
 export default async function GradePage() {
-  const grades = await getGrades();
+  const session: any = await getServerSession(authOptions);
+  const userCode = session?.user.username.toString();
+  const grades = await getGradesByStudentId(userCode);
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Notas" />
-
       <div className="flex flex-col gap-10">
-        <TableCustom columns={columns} data={grades}></TableCustom>
+        {grades.length === 0 ? (
+          <div>TODAVÍA NO TENEMOS ELEMENTOS</div>
+        ) : (
+          <TableCustom columns={columns} data={grades}></TableCustom>
+        )}
       </div>
     </DefaultLayout>
   );

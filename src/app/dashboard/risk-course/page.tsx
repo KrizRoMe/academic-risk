@@ -2,8 +2,12 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import { getRiskCourses } from "@/app/services/riskcourse.service";
-import { useStore } from "@/libs/zustand/store";
+import {
+  getRiskCourses,
+  getRiskGradesByStudentId,
+} from "@/app/services/riskcourse.service";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Risk Course",
@@ -16,13 +20,19 @@ const columns = [
 ];
 
 export default async function RiskCoursePage() {
-  const risk = await getRiskCourses();
+  const session: any = await getServerSession(authOptions);
+  const userCode = session?.user.username.toString();
+  const risk = await getRiskGradesByStudentId(userCode);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Cursos en Riesgo" />
-
       <div className="flex flex-col gap-10">
-        <TableCustom columns={columns} data={risk}></TableCustom>
+        {risk.length === 0 ? (
+          <div>TODAVÍA NO TENEMOS ELEMENTOS</div>
+        ) : (
+          <TableCustom columns={columns} data={risk}></TableCustom>
+        )}
       </div>
     </DefaultLayout>
   );

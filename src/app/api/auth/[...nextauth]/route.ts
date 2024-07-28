@@ -2,8 +2,9 @@ import { prisma } from "@/libs/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcrypt-ts";
 import NextAuth from "next-auth/next";
+import { NextAuthOptions } from "next-auth";
 
-const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -42,15 +43,14 @@ const authOptions = {
       session.user = token.user;
       return session;
     },
+    async redirect({ url, baseUrl }: any) {
+        return url.startsWith(baseUrl) ? url : baseUrl;
+    },
   },
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
-    callbacks: {
-      async redirect({ url, baseUrl }: any) {
-        return url.startsWith(baseUrl) ? url : baseUrl;
-      },
-    },
+
   },
 };
 

@@ -29,12 +29,21 @@ export async function getCourses() {
   }
 }
 
-
-export async function getCoursesByStudentId(studentId: number) {
+export async function getCoursesByStudentId(studentCode: string) {
   try {
+    const student = await prisma.student.findUnique({
+      where: {
+        code: studentCode,
+      },
+    });
+
+    if (!student) {
+      throw new Error(`No student found with code: ${studentCode}`);
+    }
+
     const grades = await prisma.grade.findMany({
       where: {
-        studentId: studentId,
+        studentId: student.id,
       },
       select: {
         course: {

@@ -39,12 +39,39 @@ export async function getRiskCourses() {
     throw new Error(`Database error! : ${error}`);
   }
 }
+type RiskItem = {
+  id: number;
+  courseId: number;
+  academicPeriodId: number;
+  value1: number;
+  value2: number;
+  value3: number;
+  updatedAt: Date;
+  createdAt: Date;
+  course: string;
+  courseCode: string;
+  semester: number;
+  failures: number;
+}
 
-export async function getRiskGradesByStudentId(studentId: number) {
+export async function getRiskGradesByStudentId(studentCode: string) {
+  
   try {
+
+    const student = await prisma.student.findUnique({
+      where: {
+        code: studentCode,
+      },
+    });
+
+    // Si el estudiante no existe, lanzar un error
+    if (!student) {
+      throw new Error(`No student found with code: ${studentCode}`);
+    }
+
     const grades = await prisma.grade.findMany({
       where: {
-        studentId: studentId,
+        studentId: student.id,
       },
       select: {
         courseId: true,
@@ -102,7 +129,7 @@ export async function getRiskGradesByStudentId(studentId: number) {
       ...item,
     }));
 
-    const filteredRiskWithId = riskWithId.filter((item) => item.failures >= 2);
+    const filteredRiskWithId: RiskItem[] = riskWithId.filter((item) => item.failures >= 2);
 
     return filteredRiskWithId;
   } catch (error) {
