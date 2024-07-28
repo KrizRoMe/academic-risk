@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
-import { Intervention, RiskCourse } from "@prisma/client";
+import { Intervention, RiskCourse, Grade } from "@prisma/client";
 
 // export const metadata: Metadata = {
 //   title: "AcamedicRisk | Profile",
@@ -18,11 +18,15 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
   const [riskCourseList, setRiskCourseList] = useState<RiskCourse[]>([]);
-  const [lengthStudentList, setLengthStudentList] = useState<number>(0)
-  const [lengthTeacherList, setLengthTeacherList] = useState<number>(0)
+  const [lengthStudentList, setLengthStudentList] = useState<number>(0);
+  const [lengthTeacherList, setLengthTeacherList] = useState<number>(0);
+  const [gradeCourseList, setGradeCourseList] = useState<Grade[]>([]);
+  const [gradeAverage, setGradeAverage] = useState<number>(0);
+  const [riskCoursesCount, setRiskCoursesCount] = useState<number>(0);
 
   const { data: session, status }: any = useSession();
   const router = useRouter();
+  const codeStudent = session?.user?.username;
 
   const handleSendWhatsappNotification = async () => {
     const phone = "+51986550234";
@@ -52,7 +56,7 @@ const ProfilePage = () => {
     });
     const interventionList = await response.json();
     setInterventionList(interventionList);
-  }
+  };
 
   const getRiskCourses = async () => {
     const response = await fetch("/api/risk-course", {
@@ -60,7 +64,7 @@ const ProfilePage = () => {
     });
     const riskCourseList = await response.json();
     setRiskCourseList(riskCourseList);
-  }
+  };
 
   const getListStudent = async () => {
     const response = await fetch("/api/student", {
@@ -77,7 +81,7 @@ const ProfilePage = () => {
     if (studentList) {
       setLengthStudentList(studentList.length);
     }
-  }
+  };
 
   const getListTeacher = async () => {
     const response = await fetch("/api/teacher", {
@@ -94,13 +98,54 @@ const ProfilePage = () => {
     if (teacherList) {
       setLengthTeacherList(teacherList.length);
     }
-  }
+  };
+
+  const averageGradeByStudent = async (codeStudent: string) => {
+    try {
+      const response = await fetch(`/api/grade/${codeStudent}`);
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setGradeCourseList(data.gradeList);
+      setGradeAverage(data.average);
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
+  };
+  const getRiskCoursesCount = async (codeStudent: string) => {
+    try {
+      const response = await fetch(`/api/risk-course/${codeStudent}`, {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const riskCoursesCount = data.riskCoursesCount;
+      setRiskCoursesCount(riskCoursesCount);
+    } catch (error) {
+      console.error(
+        "An error occurred while fetching the risk courses:",
+        error,
+      );
+    }
+  };
 
   useEffect(() => {
     getRiskCourses();
     getInterventionList();
     getListStudent();
     getListTeacher();
+    averageGradeByStudent(codeStudent);
+    getRiskCoursesCount(codeStudent);
   }, []);
 
   return (
@@ -191,17 +236,21 @@ const ProfilePage = () => {
                 <div className="mt-4">
                   <p className="font-medium">👋 Bienvenido</p>
                   <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                    {status !== "loading" && session?.user && session?.user?.username}
+                    {status !== "loading" &&
+                      session?.user &&
+                      session?.user?.username}
                   </h3>
                   <div className="mx-auto mb-5.5 mt-4.5 grid max-w-150 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
-                    {status !== "loading" && session?.user && session?.user?.role === "STUDENT" ? (
+                    {status !== "loading" &&
+                    session?.user &&
+                    session?.user?.role === "STUDENT" ? (
                       <>
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                           <span className="me-1 text-sm">
                             Cursos en Riesgo:
                           </span>
                           <span className="font-semibold text-black dark:text-white">
-                            {riskCourseList.length}
+                            {riskCoursesCount}
                           </span>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
@@ -209,7 +258,7 @@ const ProfilePage = () => {
                             Calificación Promedio:
                           </span>
                           <span className="font-semibold text-black dark:text-white">
-                            13
+                            {Math.round(gradeAverage)}
                           </span>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
