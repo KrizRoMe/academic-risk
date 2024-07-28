@@ -28,3 +28,44 @@ export async function getCourses() {
     throw new Error(`Database error!`);
   }
 }
+
+
+export async function getCoursesByStudentId(studentId: number) {
+  try {
+    const grades = await prisma.grade.findMany({
+      where: {
+        studentId: studentId,
+      },
+      select: {
+        course: {
+          select: {
+            id: true,
+            name: true,
+            code: true,
+            teacherId: true,
+            semester: true,
+            year: true,
+            teacher: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const courses = grades.map((grade) => grade.course);
+    const uniqueCourses = Array.from(new Set(courses.map((course) => course.id))).map((id) => 
+      courses.find((course) => course.id === id)
+    );
+    const flattenedCourses = uniqueCourses.map((course) => ({
+      ...course,
+      teacher: course?.teacher.name,
+    }));
+
+    return flattenedCourses;
+  } catch (error) {
+    throw new Error(`Database error!`);
+  }
+}
