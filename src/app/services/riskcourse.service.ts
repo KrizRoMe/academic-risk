@@ -77,7 +77,7 @@ export async function getRiskGradesByStudentId(studentId: number) {
       const average = (grade.value1 + grade.value2 + grade.value3) / 3;
       const failures = average < 10.5 ? 1 : 0;
 
-    return {
+      return {
         ...grade,
         failures: failures,
         semester: grade.academicPeriod.semester,
@@ -86,7 +86,25 @@ export async function getRiskGradesByStudentId(studentId: number) {
       };
     });
 
-    return flattenedGrades;
+    const groupedByCourseCode = flattenedGrades.reduce((acc: Record<string, any>, item) => {
+      if (!acc[item.courseCode]) {
+        acc[item.courseCode] = { ...item };
+      } else {
+        acc[item.courseCode].failures += item.failures;
+      }
+      return acc;
+    }, {});
+
+    const groupedRisk = Object.values(groupedByCourseCode);
+
+    const riskWithId = groupedRisk.map((item, index) => ({
+      id: index + 1,
+      ...item,
+    }));
+
+    const filteredRiskWithId = riskWithId.filter((item) => item.failures >= 2);
+
+    return filteredRiskWithId;
   } catch (error) {
     throw new Error(`Database error! : ${error}`);
   }
