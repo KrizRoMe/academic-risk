@@ -103,7 +103,6 @@ const ProfilePage = () => {
   const averageGradeByStudent = async (codeStudent: string) => {
     try {
       const response = await fetch(`/api/grade/${codeStudent}`);
-      console.log(response);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

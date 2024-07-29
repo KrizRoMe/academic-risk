@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useChat } from "@/context/chatbot.context";
 import { Intervention } from "@prisma/client";
@@ -9,15 +9,16 @@ enum InterventionType {
   AUTOEVALUATION = "Autoevaluación",
   STUDY_HABITS = "Hábitos de Estudio",
   ACADEMIC_GOALS = "Objetivos Académicos",
+  MOOD_STATE = "Estado de Ánimo",
 }
 
 function InterventionList() {
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
-  const [selectedIntervention, setSelectedIntervention] = useState<Intervention | null>(null);
+  const [selectedIntervention, setSelectedIntervention] =
+    useState<Intervention | null>(null);
 
   const { data: session, status }: any = useSession();
-  const {chats, setIntervention} = useChat();
-
+  const { chats, setIntervention } = useChat();
 
   const getInterventions = async () => {
     const response = await fetch("/api/chatbot/intervention", {
@@ -29,16 +30,16 @@ function InterventionList() {
     });
     const data = await response.json();
     setInterventionList(data);
-  }
+  };
 
   const getFormattedDate = (date: Date) => {
     const newDate = new Date(date);
-    const day = String(newDate.getDate()).padStart(2, '0');
-    const month = String(newDate.getMonth() + 1).padStart(2, '0');
+    const day = String(newDate.getDate()).padStart(2, "0");
+    const month = String(newDate.getMonth() + 1).padStart(2, "0");
     const year = newDate.getFullYear();
-    const hours = String(newDate.getHours()).padStart(2, '0');
-    const minutes = String(newDate.getMinutes()).padStart(2, '0');
-    const seconds = String(newDate.getSeconds()).padStart(2, '0');
+    const hours = String(newDate.getHours()).padStart(2, "0");
+    const minutes = String(newDate.getMinutes()).padStart(2, "0");
+    const seconds = String(newDate.getSeconds()).padStart(2, "0");
 
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   };
@@ -51,7 +52,6 @@ function InterventionList() {
     setSelectedIntervention(intervention);
     setIntervention(intervention);
   };
-
 
   useEffect(() => {
     getInterventions();
@@ -69,7 +69,9 @@ function InterventionList() {
             <h5 className="text-sm font-medium text-black dark:text-white">
               {InterventionType[intervention.type]}
             </h5>
-            <p className="text-sm">{getFormattedDate(intervention.updatedAt)}</p>
+            <p className="text-sm">
+              {getFormattedDate(intervention.updatedAt)}
+            </p>
           </div>
         </div>
       ))}

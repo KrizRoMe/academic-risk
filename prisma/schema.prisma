@@ -17,6 +17,7 @@ enum InterventionType {
   AUTOEVALUATION
   STUDY_HABITS
   ACADEMIC_GOALS
+  MOOD_STATE
 }
 
 // ####----Models ------####
