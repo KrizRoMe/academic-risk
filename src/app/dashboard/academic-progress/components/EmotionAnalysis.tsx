@@ -44,7 +44,9 @@ const EmotionAnalysis: React.FC<BarChartProps> = ({ emotionData }) => {
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-6">
-      <h2 className="mb-4 text-2xl font-bold">Análisis de Emociones</h2>
+      <h4 className="text-xl font-semibold text-black dark:text-white mb-2">
+        Análisis de Emociones
+      </h4>
       {data.length >= 3 ? (
         <p className="mb-4 rounded-lg bg-black p-4">
           En el gráfico de barras anterior, se muestra la frecuencia de diversas
@@ -64,9 +66,9 @@ const EmotionAnalysis: React.FC<BarChartProps> = ({ emotionData }) => {
       {data.length >= 3 ? (
         <>
           {" "}
-          <h2 className="mb-4 text-2xl font-bold">
+          <h4 className="text-xl font-semibold text-black dark:text-white mb-2">
             Recomendaciones Personalizadas
-          </h2>
+          </h4>
           <ul className="list-inside list-disc rounded-lg bg-black p-4">
             {data
               .filter((emotion) => emotion.value > 0)

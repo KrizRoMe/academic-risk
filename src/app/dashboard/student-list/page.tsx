@@ -16,10 +16,10 @@ const columns = [
 ];
 
 interface Student {
-    name: string;
-    surname: string;
-    code: string;
-    dni: string;
+  name: string;
+  surname: string;
+  code: string;
+  dni: string;
 }
 
 
@@ -27,7 +27,7 @@ export default async function StudentListPage() {
   let students: Student[] = await getStudents();
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Cursos" />
+      <Breadcrumb pageName="Estudiantes" />
 
       <div className="flex flex-col gap-10">
         <TableCustom columns={columns} data={students}></TableCustom>

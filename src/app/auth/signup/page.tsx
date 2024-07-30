@@ -24,10 +24,12 @@ const SignUp: React.FC = () => {
     const formData = new FormData(form);
 
     const name = formData.get("name") as string;
-    const username = formData.get("username") as string;
+    const surname = formData.get("surname") as string;
+    const code = formData.get("code") as string;
+    const dni = formData.get("dni") as string;
+    const username = formData.get("code") as string;
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
-    const dni = formData.get("confirmPassword") as string;
 
     if (password !== confirmPassword) {
       alert("Las contraseñas no coinciden");
@@ -36,12 +38,21 @@ const SignUp: React.FC = () => {
 
     const hashedPassword = await hashSync(password, 10);
 
+    const userCredentials = {
+      name,
+      surname,
+      code,
+      dni,
+      username,
+      password: hashedPassword,
+    };
+
     const res = await fetch("/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, username, password: hashedPassword, dni }),
+      body: JSON.stringify({ ...userCredentials }),
     });
     if (res.ok) {
       router.push("/");
@@ -235,13 +246,27 @@ const SignUp: React.FC = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Nombre Completo
+                    Nombre
                   </label>
                   <div className="relative">
                     <input
                       name="name"
                       type="text"
-                      placeholder="Ingrese su nombre completo"
+                      placeholder="Ingrese su nombre"
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Apellidos
+                  </label>
+                  <div className="relative">
+                    <input
+                      name="surname"
+                      type="text"
+                      placeholder="Ingrese sus apellidos"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
@@ -253,9 +278,9 @@ const SignUp: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
-                      name="username"
+                      name="code"
                       type="text"
-                      placeholder="Ingrese su usuario"
+                      placeholder="Ingrese su código de estudiante"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       required
                     />
@@ -264,7 +289,7 @@ const SignUp: React.FC = () => {
 
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Dni del Estudiante:
+                    DNI:
                   </label>
                   <div className="relative">
                     <input

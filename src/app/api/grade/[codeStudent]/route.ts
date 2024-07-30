@@ -24,7 +24,21 @@ export async function GET(req: Request, { params }: { params: { codeStudent: str
     const sum = gradeList.reduce((acc, grade) => acc + grade.value1 + grade.value2 + grade.value3, 0);
     const average = sum / (gradeList.length * 3);
 
-    return NextResponse.json({ gradeList, average });
+
+    const students = await prisma.student.findMany({
+      include: {
+        grades: true,
+      },
+    });
+
+    const studentsAtRisk = students.filter(student => {
+      const gradeList = student.grades;
+      const sum = gradeList.reduce((acc, grade) => acc + grade.value1 + grade.value2 + grade.value3, 0);
+      const average = sum / (gradeList.length * 3);
+      return average < 10.5;
+    });
+
+    return NextResponse.json({ gradeList, average, studentsAtRisk });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message });

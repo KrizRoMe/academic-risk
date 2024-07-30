@@ -25,7 +25,7 @@ export default async function StudentListPage() {
   let teachers: Teacher[] = await getTeachers();
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Cursos" />
+      <Breadcrumb pageName="Docentes" />
 
       <div className="flex flex-col gap-10">
         <TableCustom columns={columns} data={teachers}></TableCustom>

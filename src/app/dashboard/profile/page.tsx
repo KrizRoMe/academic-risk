@@ -23,6 +23,7 @@ const ProfilePage = () => {
   const [gradeCourseList, setGradeCourseList] = useState<Grade[]>([]);
   const [gradeAverage, setGradeAverage] = useState<number>(0);
   const [riskCoursesCount, setRiskCoursesCount] = useState<number>(0);
+  const [studentsAtRisk, setStudentsAtRisk] = useState<[]>([]);
 
   const { data: session, status }: any = useSession();
   const router = useRouter();
@@ -111,12 +112,14 @@ const ProfilePage = () => {
       const data = await response.json();
       setGradeCourseList(data.gradeList);
       setGradeAverage(data.average);
+      setStudentsAtRisk(data.studentsAtRisk);
       return data;
     } catch (error) {
       console.error("Error:", error);
       return null;
     }
   };
+
   const getRiskCoursesCount = async (codeStudent: string) => {
     try {
       const response = await fetch(`/api/risk-course/${codeStudent}`, {
@@ -284,7 +287,7 @@ const ProfilePage = () => {
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
                           <span className="me-1 text-sm">Alumnos en RA:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            {lengthStudentList}
+                            {studentsAtRisk ?? 0}
                           </span>
                         </div>
                       </>
