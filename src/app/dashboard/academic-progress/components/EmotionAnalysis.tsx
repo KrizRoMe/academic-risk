@@ -40,6 +40,7 @@ const EmotionAnalysis: React.FC<BarChartProps> = ({ emotionData }) => {
     cansancio:
       "Asegúrate de estar obteniendo suficiente sueño. Considera hablar con un médico si el cansancio persiste.",
   };
+  console.log(data);
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-6">
@@ -48,25 +49,42 @@ const EmotionAnalysis: React.FC<BarChartProps> = ({ emotionData }) => {
         <p className="mb-4 rounded-lg bg-black p-4">
           En el gráfico de barras anterior, se muestra la frecuencia de diversas
           emociones detectadas en tus conversaciones con el chatbot. La emoción
-          más predominante es la {data[0].name} {data[0].emoji}, seguida de{" "}
-          {data[1].name} {data[1].emoji} y {data[2].name} {data[2].emoji}.
+          más predominante es la {data[0].name} {data[0].emoji},
+          {data[1].value > 0
+            ? "seguida de " + data[1].name + " " + data[1].emoji + ","
+            : ""}
+          {data[1].value > 0
+            ? "y " + data[1].name + " " + data[1].emoji + ","
+            : ""}
         </p>
       ) : (
-        <span>todavia nada</span>
+        <span>Vuelve despues de una tutoría</span>
       )}
-      <h2 className="mb-4 text-2xl font-bold">
-        Recomendaciones Personalizadas
-      </h2>
-      <ul className="list-inside list-disc rounded-lg bg-black p-4">
-        {data.slice(0, 3).map((emotion) => (
-          <li key={emotion.name}>
-            <strong>
-              {emotion.name.charAt(0).toUpperCase() + emotion.name.slice(1)}
-            </strong>
-            : {recommendations[emotion.name]}
-          </li>
-        ))}
-      </ul>
+
+      {data.length >= 3 ? (
+        <>
+          {" "}
+          <h2 className="mb-4 text-2xl font-bold">
+            Recomendaciones Personalizadas
+          </h2>
+          <ul className="list-inside list-disc rounded-lg bg-black p-4">
+            {data
+              .filter((emotion) => emotion.value > 0)
+              .slice(0, 3)
+              .map((emotion) => (
+                <li key={emotion.name}>
+                  <strong>
+                    {emotion.name.charAt(0).toUpperCase() +
+                      emotion.name.slice(1)}
+                  </strong>
+                  : {recommendations[emotion.name]}
+                </li>
+              ))}
+          </ul>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

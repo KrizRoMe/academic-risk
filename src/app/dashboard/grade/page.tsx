@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import { getGrades, getGradesByStudentId } from "@/app/services/grade.service";
+import { getGradesByStudentId } from "@/app/services/grade.service";
 import { getServerSession } from "next-auth";
-import { getRiskGradesByStudentId } from "@/app/services/riskcourse.service";
+
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {

@@ -9,6 +9,20 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Grade } from "@prisma/client";
 
+async function fetchEmotionData(codeStudent: string) {
+  const response = await fetch(`/api/chatbot/intervention/${codeStudent}`);
+  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  const data = await response.json();
+  return data?.emotionCount;
+}
+
+async function fetchGradeData(codeStudent: string) {
+  const response = await fetch(`/api/grade/${codeStudent}`);
+  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  const data = await response.json();
+  return data;
+}
+
 function AcademicProgressPage() {
   const { data: session, status }: any = useSession();
   const codeStudent = session?.user?.username;
@@ -16,31 +30,15 @@ function AcademicProgressPage() {
   const [gradeCourseList, setGradeCourseList] = useState<Grade[]>([]);
   const [gradeAverage, setGradeAverage] = useState<number>(0);
 
-  const averageGradeByStudent = async (codeStudent: string) => {
-    try {
-      const response = await fetch(`/api/grade/${codeStudent}`);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setGradeCourseList(data.gradeList);
-      setGradeAverage(data.average);
-      return data;
-    } catch (error) {
-      console.error("Error:", error);
-      return null;
-    }
-  };
-
   useEffect(() => {
-    fetch(`/api/chatbot/intervention/${codeStudent}`)
-      .then((response) => response.json())
-      .then((data) => setEmotionData(data?.emotionCount))
-      .catch((error) => console.error(error));
+    fetchEmotionData(codeStudent).then(setEmotionData).catch(console.error);
 
-    averageGradeByStudent(codeStudent);
+    fetchGradeData(codeStudent)
+      .then((data) => {
+        setGradeCourseList(data.gradeList);
+        setGradeAverage(data.average);
+      })
+      .catch(console.error);
   }, [codeStudent]);
 
   return (

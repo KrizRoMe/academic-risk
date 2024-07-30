@@ -2,15 +2,12 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableCustom from "@/components/Tables/TableCustom";
-import {
-  getCourses,
-  getCoursesByStudentId,
-} from "@/app/services/course.service";
+import { getCoursesByStudentId } from "@/app/services/course.service";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
-  title: "AcademicRisk | Cursos",
+  title: "AcademicRisk | Courses",
 };
 
 const columns = [

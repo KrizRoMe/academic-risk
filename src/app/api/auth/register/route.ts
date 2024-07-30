@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 
 export async function POST(request: Request){
-    const {name, username, password} = await request.json();
+    const {name, username, password, dni} = await request.json();
 
     if (!name || !username || !password)
         return NextResponse.json({message: "Please provide all fields"});
@@ -16,7 +16,11 @@ export async function POST(request: Request){
             }
         })
         const studentCreated = await prisma.student.create({
-            data: {name}
+            data: {
+                name,
+                code:username,
+                dni
+            }
         });
 
         console.log(userCreated, studentCreated);

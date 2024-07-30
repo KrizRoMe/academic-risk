@@ -107,7 +107,7 @@ export async function getGradesByStudentId(studentCode: string) {
       year: grade.academicPeriod.year.year,
       student: grade.student.name + " " + grade.student.surname,
       course: grade.course.name,
-      promedio: (grade.value1 + grade.value2 + grade.value3) / 3,
+      promedio: +((grade.value1 + grade.value2 + grade.value3) / 3).toFixed(1),
     }));
 
     return flattenedGrades;
