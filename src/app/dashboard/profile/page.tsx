@@ -17,6 +17,7 @@ import { Intervention, RiskCourse, Grade } from "@prisma/client";
 const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
+  const [allInterventionList, setAllInterventionList] = useState<Intervention[]>([]);
   const [riskCourseList, setRiskCourseList] = useState<RiskCourse[]>([]);
   const [lengthStudentList, setLengthStudentList] = useState<number>(0);
   const [lengthTeacherList, setLengthTeacherList] = useState<number>(0);
@@ -58,6 +59,14 @@ const ProfilePage = () => {
     const interventionList = await response.json();
     setInterventionList(interventionList);
   };
+
+  const getAllInterventionList = async () => {
+    const response = await fetch("/api/chatbot/intervention", {
+      method: "GET",
+    });
+    const allInterventionList = await response.json();
+    setAllInterventionList(allInterventionList);
+  }
 
   const getRiskCourses = async () => {
     const response = await fetch("/api/risk-course", {
@@ -148,6 +157,7 @@ const ProfilePage = () => {
     getListTeacher();
     averageGradeByStudent(codeStudent);
     getRiskCoursesCount(codeStudent);
+    getAllInterventionList();
   }, []);
 
   return (
@@ -266,14 +276,14 @@ const ProfilePage = () => {
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
                           <span className="me-1 text-sm">Tutorías:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            {interventionList.length}
+                            {interventionList.length ?? 0}
                           </span>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
-                          <span className="me-1 text-sm">Alumnos:</span>
+                          <span className="me-1 text-sm">Estudiantes:</span>
                           <span className="font-semibold text-black dark:text-white">
                             {lengthStudentList}
                           </span>
@@ -285,9 +295,9 @@ const ProfilePage = () => {
                           </span>
                         </div>
                         <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
-                          <span className="me-1 text-sm">Alumnos en RA:</span>
+                          <span className="me-1 text-sm">Total Tutorías:</span>
                           <span className="font-semibold text-black dark:text-white">
-                            {studentsAtRisk ?? 0}
+                            {allInterventionList.length ?? 0}
                           </span>
                         </div>
                       </>
