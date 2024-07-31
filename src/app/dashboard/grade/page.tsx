@@ -5,7 +5,7 @@ import TableCustom from "@/components/Tables/TableCustom";
 import { getGradesByStudentId } from "@/app/services/grade.service";
 import { getServerSession } from "next-auth";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/authOptions";
 
 export const metadata: Metadata = {
   title: "AcademicRisk | Grade",

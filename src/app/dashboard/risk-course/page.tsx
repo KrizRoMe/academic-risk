@@ -6,7 +6,7 @@ import {
   getRiskCourses,
   getRiskGradesByStudentId,
 } from "@/app/services/riskcourse.service";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/authOptions";
 import { getServerSession } from "next-auth";
 
 export const metadata: Metadata = {
