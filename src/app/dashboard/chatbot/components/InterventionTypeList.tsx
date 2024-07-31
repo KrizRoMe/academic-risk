@@ -7,6 +7,7 @@ enum InterventionType {
   AUTOEVALUATION = "Autoevaluación",
   STUDY_HABITS = "Hábitos de Estudio",
   ACADEMIC_GOALS = "Objetivos Académicos",
+  MOOD_STATE = "Estado de Ánimo",
 }
 
 function InterventionTypeList() {
@@ -35,7 +36,10 @@ function InterventionTypeList() {
     setIntervention(intervention);
   };
 
-  const handleSubmitChatbot = async (userMessage: string, intervention: any) => {
+  const handleSubmitChatbot = async (
+    userMessage: string,
+    intervention: any,
+  ) => {
     const isUser = false;
     const response = await fetch("/api/chatbot", {
       method: "POST",
@@ -52,11 +56,10 @@ function InterventionTypeList() {
   useEffect(() => {
     if (chats.length === 0) {
       SetIsShowInterventionTypeList(true);
-    }
-    else {
+    } else {
       SetIsShowInterventionTypeList(false);
     }
-  }, [chats])
+  }, [chats]);
 
   return (
     <>

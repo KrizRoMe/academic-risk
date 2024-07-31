@@ -126,7 +126,11 @@ interface LineChartState {
   }[];
 }
 
-const LineChart: React.FC = () => {
+interface LineChartProps {
+  gradeAverage: number;
+}
+
+const LineChart: React.FC<LineChartProps> = ({ gradeAverage }) => {
   const { data: session, status }: any = useSession();
   const [interventionList, setInterventionList] = useState<Intervention[]>([]);
 
@@ -158,7 +162,7 @@ const LineChart: React.FC = () => {
     });
     const interventionList = await response.json();
     setInterventionList(interventionList);
-  }
+  };
 
   useEffect(() => {
     getInterventionList();
@@ -190,7 +194,7 @@ const LineChart: React.FC = () => {
               <p className="font-semibold text-secondary">
                 Calificación Promedio
               </p>
-              <p className="text-sm font-medium">13</p>
+              <p className="text-sm font-medium">{Math.round(gradeAverage)}</p>
             </div>
           </div>
         </div>

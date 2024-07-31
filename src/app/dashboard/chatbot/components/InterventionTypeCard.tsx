@@ -2,6 +2,7 @@ enum InterventionType {
   AUTOEVALUATION = "Autoevaluación",
   STUDY_HABITS = "Hábitos de Estudio",
   ACADEMIC_GOALS = "Objetivos Académicos",
+  MOOD_STATE = "Estado de Ánimo",
 }
 
 type InterventionTypeCardProps = {

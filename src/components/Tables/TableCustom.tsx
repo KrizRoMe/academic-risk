@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useStore } from "@/libs/zustand/store";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -45,8 +44,6 @@ const TableCustom = ({
     let semester;
     let year;
 
-    console.log("row", row);
-
     if ("semester" in row) {
       semester = row.semester === 1 ? "1" : "2";
     } else {
@@ -65,11 +62,11 @@ const TableCustom = ({
     const semesterMatches =
       selectedSemester === "Todos" || semester === selectedSemester;
 
-    const searchTextMatches = columns.some(column =>
+    const searchTextMatches = columns.some((column) =>
       row[column.field]
         ?.toString()
         .toLowerCase()
-        .includes(searchText.toLowerCase())
+        .includes(searchText.toLowerCase()),
     );
 
     return yearMatches && semesterMatches && searchTextMatches;
@@ -99,14 +96,14 @@ const TableCustom = ({
           </div>
 
           {session?.user?.role === "STUDENT" && (
-              <div className="flex items-center rounded-lg border border-slate-300">
+            <div className="flex items-center rounded-lg border border-slate-300">
               <a
                 onClick={() => handleClick("Todos")}
                 className={`inline-flex rounded-l-lg px-2 py-1 font-medium ${selectedSemester === "Todos" || selectedYear === "Todos" ? " bg-primary text-white" : " text-black"} hover:border-primary hover:bg-primary hover:text-white dark:hover:border-primary sm:px-6 sm:py-3 ${selectedYear === "Todos" ? "rounded-e-lg" : "rounded-e-none"}`}
               >
                 Todos
               </a>
-  
+
               {selectedYear !== "Todos" && (
                 <>
                   {" "}

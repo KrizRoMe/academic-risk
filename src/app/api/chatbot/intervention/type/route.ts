@@ -7,6 +7,7 @@ export async function POST(request: Request) {
     AUTOEVALUATION: "Autoevaluación",
     STUDY_HABITS: "Hábitos de Estudio",
     ACADEMIC_GOALS: "Objetivos Académicos",
+    MOOD_STATE: "Estado de Ánimo",
   };
 
   try {
@@ -34,7 +35,9 @@ export async function POST(request: Request) {
         "Simula ser un experto en hábitos de estudio y hazme preguntas detalladas sobre mi rutina de estudio diaria. Habla como un psicólogo experto y sigue preguntando después de cada respuesta hasta que decida finalizar la conversación. Una pregunta a la vez, en español. Usa como fuente de datos información solo en el idioma español.",
       ACADEMIC_GOALS:
         "Simula ser un experto en objetivos académicos y hazme preguntas detalladas sobre mis metas académicas a corto y largo plazo. Habla como un psicólogo experto y sigue preguntando después de cada respuesta hasta que decida finalizar la conversación. Una pregunta a la vez, en español. Usa como fuente de datos información solo en el idioma español.",
-    };
+      MOOD_STATE:
+        "Simula ser un experto en estados de ánimo y hazme preguntas detalladas sobre mi estado de ánimo actual. Habla como un psicólogo experto y sigue preguntando después de cada respuesta hasta que decida finalizar la conversación. Una pregunta a la vez, en español. Usa como fuente de datos información solo en el idioma español.",
+      };
 
     const scopePrompt = SCOPE_PROMPT_OPTIONS[typeKey];
 

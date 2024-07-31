@@ -1,7 +1,8 @@
 "use client";
 
+import { Grade } from "@prisma/client";
 import { ApexOptions } from "apexcharts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
 interface DonutChartState {
@@ -56,18 +57,35 @@ const options: ApexOptions = {
   ],
 };
 
-const DonutChart: React.FC = () => {
+interface DonutChartProps {
+  gradeCourseList: Grade[];
+}
+
+const DonutChart: React.FC<DonutChartProps> = ({ gradeCourseList }) => {
   const [state, setState] = useState<DonutChartState>({
-    series: [5, 65, 25, 5],
+    series: [0, 0, 0, 0], // Inicializamos los contadores de cada sector a 0
   });
 
-  const handleReset = () => {
-    setState((prevState) => ({
-      ...prevState,
-      series: [5, 65, 25, 5],
-    }));
-  };
-  handleReset;
+  useEffect(() => {
+    if (!gradeCourseList) return;
+
+    const averages = gradeCourseList.map(
+      (course) => (course.value1 + course.value2 + course.value3) / 3,
+    );
+    const sectors = [0, 0, 0, 0]; // Contadores para cada sector
+
+    averages.forEach((avg) => {
+      if (avg <= 10)
+        sectors[0]++; // Calificaciones Bajas
+      else if (avg <= 13)
+        sectors[1]++; // Calificaciones Regulares
+      else if (avg <= 17)
+        sectors[2]++; // Buen Rendimiento
+      else sectors[3]++; // Excelente Rendimiento
+    });
+
+    setState({ series: sectors });
+  }, [gradeCourseList]);
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-5">
