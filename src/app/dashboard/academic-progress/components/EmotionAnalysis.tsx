@@ -40,7 +40,6 @@ const EmotionAnalysis: React.FC<BarChartProps> = ({ emotionData }) => {
     cansancio:
       "Asegúrate de estar obteniendo suficiente sueño. Considera hablar con un médico si el cansancio persiste.",
   };
-  console.log(data);
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-6">
