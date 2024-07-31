@@ -31,7 +31,7 @@ function AcademicProgressPage() {
   const [gradeAverage, setGradeAverage] = useState<number>(0);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && codeStudent) {
+    if (codeStudent) {
       fetchEmotionData(codeStudent).then(setEmotionData).catch(console.error);
       fetchGradeData(codeStudent)
         .then((data) => {

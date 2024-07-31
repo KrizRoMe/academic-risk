@@ -4,7 +4,11 @@ import { Intervention } from "@prisma/client";
 import { ApexOptions } from "apexcharts";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
 const options: ApexOptions = {
   legend: {

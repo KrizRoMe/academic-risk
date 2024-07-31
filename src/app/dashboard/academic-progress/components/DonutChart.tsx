@@ -3,11 +3,16 @@
 import { Grade } from "@prisma/client";
 import { ApexOptions } from "apexcharts";
 import { useEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+
 
 interface DonutChartState {
   series: number[];
 }
+
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
 const options: ApexOptions = {
   chart: {
