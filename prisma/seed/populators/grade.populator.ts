@@ -20,6 +20,7 @@ export const gradePopulator = async () => {
       throw new Error("Course not found");
     }
     if (!student) {
+      console.log(grade.studentCode);
       throw new Error("Student not found");
     }
     if (!academicPeriod) {

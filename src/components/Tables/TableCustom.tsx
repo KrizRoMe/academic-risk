@@ -52,7 +52,7 @@ const TableCustom = ({
     }
 
     if ("year" in row) {
-      year = row.year.toString();
+      year = row?.year?.toString();
     } else {
       year = "Todos";
     }

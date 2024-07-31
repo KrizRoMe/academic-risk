@@ -38,6 +38,8 @@ export async function GET(req: Request, { params }: { params: { codeStudent: str
       return average < 10.5;
     });
 
+    console.log(gradeList);
+
     return NextResponse.json({ gradeList, average, studentsAtRisk });
   } catch (error) {
     if (error instanceof Error) {

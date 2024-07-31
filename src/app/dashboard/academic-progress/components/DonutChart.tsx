@@ -74,6 +74,8 @@ const DonutChart: React.FC<DonutChartProps> = ({ gradeCourseList }) => {
   useEffect(() => {
     if (!gradeCourseList) return;
 
+    console.log(gradeCourseList);
+
     const averages = gradeCourseList.map(
       (course) => (course.value1 + course.value2 + course.value3) / 3,
     );
@@ -144,6 +146,8 @@ const DonutChart: React.FC<DonutChartProps> = ({ gradeCourseList }) => {
             options={options}
             series={state.series}
             type="donut"
+            width={"100%"}
+            height={350}
           />
         </div>
       </div>

@@ -21,7 +21,7 @@ const columns = [
 
 export default async function RiskCoursePage() {
   const session: any = await getServerSession(authOptions);
-  const userCode = session?.user.username.toString();
+  const userCode = session?.user?.username?.toString();
   const risk = await getRiskGradesByStudentId(userCode);
 
   return (

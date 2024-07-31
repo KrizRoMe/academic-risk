@@ -55,7 +55,7 @@ type RiskItem = {
 }
 
 export async function getRiskGradesByStudentId(studentCode: string) {
-  
+
   try {
 
     const student = await prisma.student.findUnique({

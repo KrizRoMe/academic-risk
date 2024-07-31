@@ -34,7 +34,7 @@ interface CoursePageProps {
 
 export default async function CoursePage() {
   const session: any = await getServerSession(authOptions);
-  const userCode = session?.user.username.toString();
+  const userCode = session?.user?.username?.toString();
   let courses: Course[] = await getCoursesByStudentId(userCode);
 
   return (
