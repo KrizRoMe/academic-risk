@@ -3,13 +3,11 @@ import { NextResponse } from "next/server";
 
 
 export async function POST(request: Request){
-    const {name, surname, code, dni, username, password} = await request.json();
-    const userWithoutFields = !name || !surname || !code || !dni || !username || !password;
-
-    console.log(name, surname, code, dni, username, password);
+    const {name, surname, code, dni, username, phone, password} = await request.json();
+    const userWithoutFields = !name || !surname || !code || !dni || !username || !phone || !password;
 
     if (userWithoutFields)
-        return NextResponse.json({message: "Please provide all fields"});
+        throw new Error("Missing fields");
 
     try {
         const userCreated = await prisma.user.create({
@@ -24,6 +22,7 @@ export async function POST(request: Request){
                 surname,
                 code,
                 dni,
+                phone
             }
         });
 

@@ -36,6 +36,27 @@ function ResetPasswordVerifyPage() {
     }
   }
 
+  const handleResendVerificationCode = async () => {
+    const username = searchParams.get('username');
+
+    if(!username) return;
+
+    const response = await fetch('/api/auth/reset-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username }),
+    });
+
+    if (response.ok) {
+      alert('Código de verificación reenviado')
+    }
+    else{
+      alert('Error al reenviar el código de verificación')
+    }
+  }
+
   return (
     <div className="overflow-hidden px-4 dark:bg-boxdark-2 sm:px-8">
       <div className="flex h-screen flex-col items-center justify-center overflow-hidden">
@@ -96,10 +117,10 @@ function ResetPasswordVerifyPage() {
                       name="verificationCode4"
                     />
                   </div>
-                  {/* <p className="mb-5 mt-4 text-left font-medium text-black dark:text-white">
-                    Did not receive a code?{' '}
-                    <button className="text-primary">Resend</button>
-                  </p> */}
+                  <p className="mb-5 mt-4 text-left font-medium text-black dark:text-white">
+                    No recibiste el código? {' '}
+                    <button type="button" className="text-primary" onClick={() => handleResendVerificationCode()}>Reenviar</button>
+                  </p>
                   <button className="flex w-full justify-center rounded-md bg-primary p-[13px] font-bold text-gray hover:bg-opacity-90" type="submit">
                     Verificar
                   </button>
