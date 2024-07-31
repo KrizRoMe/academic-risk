@@ -300,10 +300,16 @@ const SignIn = () => {
                     </div>
 
                     <div className="mt-6 text-center">
-                      <p>
+                      <p className="mb-2">
                       ¿No tienes una cuenta?{" "}
                         <Link href="/auth/signup" className="text-primary">
                           Registrarse
+                        </Link>
+                      </p>
+                      <p>
+                      ¿Olvidaste la contraseña?{" "}
+                        <Link href="/auth/reset-password" className="text-primary">
+                          Restablecer contraseña
                         </Link>
                       </p>
                     </div>

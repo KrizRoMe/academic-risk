@@ -1,87 +1,35 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React from 'react'
 
-import { hashSync } from "bcrypt-ts";
-
-// import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import { useRouter } from "next/navigation";
-
-// export const metadata: Metadata = {
-//   title: "AcademicRisk | Sign Up",
-// };
-
-const SignUp: React.FC = () => {
+function ResetPasswordPage() {
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleResetPasswordSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const username = formData.get("username") as string;
 
-    const name = formData.get("name") as string;
-    const surname = formData.get("surname") as string;
-    const code = formData.get("code") as string;
-    const dni = formData.get("dni") as string;
-    const username = formData.get("code") as string;
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
-
-    if (password !== confirmPassword) {
-      alert("Las contraseñas no coinciden");
-      return;
-    }
-
-    const hashedPassword = await hashSync(password, 10);
-
-    const userCredentials = {
-      name,
-      surname,
-      code,
-      dni,
-      username,
-      password: hashedPassword,
-    };
-
-    const res = await fetch("/api/auth/register", {
+    const response = await fetch("/api/auth/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...userCredentials }),
+      body: JSON.stringify({ username }),
     });
-    if (res.ok) {
-      router.push("/");
-    } else {
-      console.error("Registration failed");
+
+    if (response.ok) {
+      router.push(`/auth/reset-password-verify?username=${username}`);
     }
 
-    form.reset();
-  };
-
-  const handleShowPassword = () => {
-    const passwordInput = document.querySelector(
-      'input[name="password"]',
-    ) as HTMLInputElement;
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-    } else {
-      passwordInput.type = "password";
-    }
-  };
-
-  const handleShowConfirmPassword = () => {
-    const confirmPasswordInput = document.querySelector(
-      'input[name="confirmPassword"]',
-    ) as HTMLInputElement;
-    if (confirmPasswordInput.type === "password") {
-      confirmPasswordInput.type = "text";
-    } else {
-      confirmPasswordInput.type = "password";
+    else{
+      alert("Usuario no encontrado");
     }
   };
 
@@ -240,161 +188,31 @@ const SignUp: React.FC = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Registrarse
+                Restablecer Contraseña
               </h2>
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleResetPasswordSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Nombre
+                    Usuario
                   </label>
                   <div className="relative">
                     <input
-                      name="name"
+                      name="username"
                       type="text"
-                      placeholder="Ingrese su nombre"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Apellidos
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="surname"
-                      type="text"
-                      placeholder="Ingrese sus apellidos"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Código de Estudiante:
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="code"
-                      type="text"
-                      placeholder="Ingrese su código de estudiante"
+                      placeholder="Ingrese su usuario"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       required
                     />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    DNI:
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="dni"
-                      type="text"
-                      placeholder="Ingrese su DNI"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Contraseña
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="password"
-                      type="password"
-                      placeholder="Ingrese su contraseña"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      required
-                    />
-
-                    <button
-                      type="button"
-                      className="absolute right-4 top-4"
-                      onClick={() => handleShowPassword()}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        opacity="0.3"
-                        className="icon icon-tabler icons-tabler-outline icon-tabler-eye"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Ingrese nuevamente su contraseña
-                  </label>
-                  <div className="relative">
-                    <input
-                      name="confirmPassword"
-                      type="password"
-                      placeholder="Ingrese nuevamente su contraseña"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      required
-                    />
-
-                    <button
-                      type="button"
-                      className="absolute right-4 top-4"
-                      onClick={() => handleShowConfirmPassword()}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        opacity="0.3"
-                        className="icon icon-tabler icons-tabler-outline icon-tabler-eye"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                      </svg>
-                    </button>
                   </div>
                 </div>
 
                 <div className="mb-5">
                   <input
                     type="submit"
-                    value="Registrarse"
+                    value="Enviar código de recuperación"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
-                </div>
-
-                <div className="mt-6 text-center">
-                  <p>
-                    ¿Ya tienes una cuenta?{" "}
-                    <Link href="/auth/signin" className="text-primary">
-                      Iniciar sesión
-                    </Link>
-                  </p>
                 </div>
               </form>
             </div>
@@ -403,6 +221,6 @@ const SignUp: React.FC = () => {
       </div>
     </DefaultLayout>
   );
-};
+}
 
-export default SignUp;
+export default ResetPasswordPage

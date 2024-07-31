@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
-import { Intervention, RiskCourse, Grade } from "@prisma/client";
+import { Intervention, RiskCourse, Grade, Student } from "@prisma/client";
 
 // export const metadata: Metadata = {
 //   title: "AcamedicRisk | Profile",
@@ -25,10 +25,60 @@ const ProfilePage = () => {
   const [gradeAverage, setGradeAverage] = useState<number>(0);
   const [riskCoursesCount, setRiskCoursesCount] = useState<number>(0);
   const [studentsAtRisk, setStudentsAtRisk] = useState<[]>([]);
+  const [studentInformation, setStudentInformation] = useState<Student | null>(null)
 
   const { data: session, status }: any = useSession();
   const router = useRouter();
   const codeStudent = session?.user?.username;
+
+  const handleUpdateStudentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget
+    const formData = new FormData(form);
+    const name = formData.get("username") as string;
+    const surname = formData.get("surname") as string;
+    const dni = formData.get("dni") as string;
+    const phone = formData.get("phone") as string;
+
+    const response = await fetch(`/api/student/${codeStudent}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, surname, dni, phone }),
+    });
+
+    if (!response.ok) {
+      alert("Error al actualizar la información");
+    }
+
+    const updatedStudentInformation = await response.json();
+
+    if (updatedStudentInformation) {
+      setStudentInformation(updatedStudentInformation);
+      alert("Información actualizada correctamente");
+    }
+  }
+
+  const getStudentInformation = async () => {
+    const response = await fetch(`/api/student/${codeStudent}`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      console.error("Error fetching student information");
+      return;
+    }
+
+    const studentInformation = await response.json();
+
+    console.log("studentInformation", studentInformation);
+
+    if (studentInformation) {
+      setStudentInformation(studentInformation);
+    }
+  }
 
   const handleSendWhatsappNotification = async () => {
     const phone = "+51986550234";
@@ -151,6 +201,7 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
+    getStudentInformation();
     getRiskCourses();
     getInterventionList();
     getListStudent();
@@ -326,6 +377,93 @@ const ProfilePage = () => {
                       </svg>
                       Notificar Riesgo Académico
                     </button>
+                  )}
+                  {session?.user && session?.user?.role === "STUDENT" && (
+                    <>
+                      <h4 className="text-xl font-semibold text-black dark:text-white text-center my-3">
+                      Datos Personales
+                      </h4>
+                      <form className="flex-col justify-center items-center gap-3 w-full" onSubmit={handleUpdateStudentSubmit}>
+                        <section className="flex gap-2 mb-2">
+                          <div className="flex-1">
+                            <label className="mb-3 block text-sm font-medium text-black dark:text-white text-start">
+                            Nombre
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Nombre"
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                              defaultValue={studentInformation?.name}
+                              name="username"
+                            />
+                          </div>
+
+                          <div className="flex-1">
+                            <label className="mb-3 block text-sm font-medium text-black dark:text-white text-start">
+                            Apellidos
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Enter your last name"
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                              defaultValue={studentInformation?.surname}
+                              name="surname"
+                            />
+                          </div>
+                        </section>
+
+                        <section className="flex gap-2 mb-2">
+                          <div className="flex-1">
+                            <label className="mb-3 block text-sm font-medium text-black dark:text-white text-start">
+                            Código de estudiante
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Nombre"
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                              defaultValue={studentInformation?.code}
+                              disabled
+                            />
+                          </div>
+
+                          <div className="flex-1">
+                            <label className="mb-3 block text-sm font-medium text-black dark:text-white text-start">
+                            DNI
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Enter your last name"
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                              defaultValue={studentInformation?.dni}
+                              name="dni"
+                            />
+                          </div>
+                        </section>
+
+                        <section className="flex gap-2 mb-2">
+                          <div className="flex-1">
+                            <label className="mb-3 block text-sm font-medium text-black dark:text-white text-start">
+                            Teléfono
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Teléfono"
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                              defaultValue={studentInformation?.phone}
+                              name="phone"
+                            />
+                          </div>
+                        </section>
+
+                        <div>
+                          <input
+                            type="submit"
+                            value="Actualizar"
+                            className=" mt-2 w-50 cursor-pointer rounded-lg border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
+                          />
+                        </div>
+                      </form>
+                    </>
                   )}
                 </div>
               </div>

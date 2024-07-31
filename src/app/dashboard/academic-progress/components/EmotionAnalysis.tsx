@@ -48,7 +48,7 @@ const EmotionAnalysis: React.FC<BarChartProps> = ({ emotionData }) => {
         Análisis de Emociones
       </h4>
       {data.length >= 3 ? (
-        <p className="mb-4 rounded-lg bg-black p-4">
+        <p className="mb-4 rounded-lg bg-slate-100 dark:bg-black dark:text-white text-black p-4">
           En el gráfico de barras anterior, se muestra la frecuencia de diversas
           emociones detectadas en tus conversaciones con el chatbot. La emoción
           más predominante es la {data[0].name} {data[0].emoji},
@@ -69,7 +69,7 @@ const EmotionAnalysis: React.FC<BarChartProps> = ({ emotionData }) => {
           <h4 className="text-xl font-semibold text-black dark:text-white mb-2">
             Recomendaciones Personalizadas
           </h4>
-          <ul className="list-inside list-disc rounded-lg bg-black p-4">
+          <ul className="list-inside list-disc rounded-lg bg-slate-100 dark:bg-black dark:text-white text-black p-4">
             {data
               .filter((emotion) => emotion.value > 0)
               .slice(0, 3)

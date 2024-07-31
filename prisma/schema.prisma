@@ -22,13 +22,14 @@ enum InterventionType {
 
 // ####----Models ------####
 model User {
-  id            Int            @id @default(autoincrement())
-  username      String         @unique
-  password      String
-  role          Role           @default(STUDENT)
-  interventions Intervention[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  id               Int            @id @default(autoincrement())
+  username         String         @unique
+  password         String
+  verificationCode Int            @default(0)
+  role             Role           @default(STUDENT)
+  interventions    Intervention[]
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
 }
 
 model Student {
@@ -37,6 +38,7 @@ model Student {
   dni       String   @unique @default("")
   name      String
   surname   String   @default("")
+  phone     String   @default("")
   grades    Grade[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
