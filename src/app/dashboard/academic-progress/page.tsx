@@ -31,14 +31,16 @@ function AcademicProgressPage() {
   const [gradeAverage, setGradeAverage] = useState<number>(0);
 
   useEffect(() => {
-    fetchEmotionData(codeStudent).then(setEmotionData).catch(console.error);
+    if (codeStudent) {
+      fetchEmotionData(codeStudent).then(setEmotionData).catch(console.error);
 
-    fetchGradeData(codeStudent)
-      .then((data) => {
-        setGradeCourseList(data.gradeList);
-        setGradeAverage(data.average);
-      })
-      .catch(console.error);
+      fetchGradeData(codeStudent)
+        .then((data) => {
+          setGradeCourseList(data.gradeList);
+          setGradeAverage(data.average);
+        })
+        .catch(console.error);
+    }
   }, [codeStudent]);
 
   return (
